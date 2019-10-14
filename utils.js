@@ -1,6 +1,7 @@
 const credentials = require('./credentials.json');
 const axios = require('axios');
 const blocs = require('./blocs.json');
+//console.log(blocs.IG[2].TroncCommun)
 const _ = require('lodash');
 const axiosPortailLog = axios.create({
     baseURL: 'https://portail.henallux.be/api/',

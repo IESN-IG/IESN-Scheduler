@@ -8,6 +8,7 @@ const http = require('http');
 const indexRouter = require('./routes/index');
 const calendarRouter = require('./routes/calendar');
 const helpRouter = require('./routes/help');
+const sectionRouter = require('./routes/section');
 const serverWebPort = require('./settings.json').serverWebPort;
 const utils = require('./utils.js');
 const cron = require('node-cron');
@@ -40,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/calendar', calendarRouter);
 app.use('/help', helpRouter);
+app.use('/section', sectionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

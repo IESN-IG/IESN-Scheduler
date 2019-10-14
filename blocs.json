@@ -1,46 +1,76 @@
 {
-  "1": {
-    "IG121 - Principes de programmation": "121",
-    "IG122 - Langage de programmation : Bases": "122",
-    "IG123 - Description des ordinateurs": "123",
-    "IG124 - Outils mathématiques pour l'informatique": "124",
-    "IG125 - Introduction à la gestion d'entreprise": "125",
-    "IG126 - Langues étrangères": "126",
-    "IG127 - Langage de programmation avancé": "127",
-    "IG128 - Organisation et exploitation des données": "128",
-    "IG129 - Conception orientée objet": "129",
-    "IG130 - Introduction au Web": "130",
-    "IG131 - Modélisation et traitement des données": "131",
-    "IG132 - Economie et management": "132"
-  },
-  "2": {
-    "IG221 - Analyse métier et conception de bases de données": "221",
-    "IG222 - Programmation orientée objet": "222",
-    "IG223 - Technologies Web": "223",
-    "IG224 - Systèmes d'exploitation": "224",
-    "IG225 - Séminaires technologiques": "225",
-    "IG226 - Modélisation de l'événementiel": "226",
-    "IG227 - Aide à la gestion d'entreprise": "227",
-    "IG228 - Communication": "228",
-    "IG229 - Analyse et gestion de projets": "229",
-    "IG230 - Projet informatique intégré": "230",
-    "IG231 - Réseaux": "231",
-    "IG232 - Introduction à la Data Intelligence": "232",
-    "IG233 - Culture générale": "233"
-  },
-  "3": {
-    "IG321 - Business Intelligence and Data Analytics": "321",
-    "IG322 - Développements Web": "322",
-    "IG323 - Conception de bases de données avancées": "323",
-    "IG324 - Aide à la décision managériale": "324",
-    "IG325 - Langues étrangères": "325",
-    "IG327 - Programmation et nouvelles technologies": "327",
-    "IG328 - Développement avancé d'application Web": "328",
-    "IG330 - Intelligence artificielle : Machine Learning et Data Mining": "330",
-    "IG331 - Big Data": "331",
-    "IG332 - Séminaires Data Science": "332",
-    "IG334 - Activité d'intégration professionnelle et travail de fin d'études": "334"
-  }
+  "IG": [
+    {
+      "IG121 - Principes de programmation": "121",
+      "IG122 - Langage de programmation : Bases": "122",
+      "IG123 - Description des ordinateurs": "123",
+      "IG124 - Outils mathématiques pour l'informatique": "124",
+      "IG125 - Introduction à la gestion d'entreprise": "125",
+      "IG126 - Langues étrangères": "126",
+      "IG127 - Langage de programmation avancé": "127",
+      "IG128 - Organisation et exploitation des données": "128",
+      "IG129 - Conception orientée objet": "129",
+      "IG130 - Introduction au Web": "130",
+      "IG131 - Modélisation et traitement des données": "131",
+      "IG132 - Economie et management": "132"
+    },
+    {
+      "IG221 - Analyse métier et conception de bases de données": "221",
+      "IG222 - Programmation orientée objet": "222",
+      "IG223 - Technologies Web": "223",
+      "IG224 - Systèmes d'exploitation": "224",
+      "IG225 - Séminaires technologiques": "225",
+      "IG226 - Modélisation de l'événementiel": "226",
+      "IG227 - Aide à la gestion d'entreprise": "227",
+      "IG228 - Communication": "228",
+      "IG229 - Analyse et gestion de projets": "229",
+      "IG230 - Projet informatique intégré": "230",
+      "IG231 - Réseaux": "231",
+      "IG232 - Introduction à la Data Intelligence": "232",
+      "IG233 - Culture générale": "233"
+    },
+    {
+      "TroncCommun": [
+        {
+          "IG321 - Business Intelligence and Data Analytics": "321"
+        },
+        {
+          "IG322 - Développements Web": "322"
+        },
+        {
+          "IG323 - Conception de bases de données avancées": "323"
+        },
+        {
+          "IG324 - Aide à la décision managériale": "324"
+        },
+        {
+          "IG325 - Langues étrangères": "325"
+        },
+        {
+          "IG334 - Activité d'intégration professionnelle et travail de fin d'études": "334"
+        }
+      ],
+      "OptionWeb": [
+        {
+          "IG327 - Programmation et nouvelles technologies": "327"
+        },
+        {
+          "IG328 - Développement avancé d'application Web": "328"
+        }
+      ],
+      "OptionData": [
+        {
+          "IG330 - Intelligence artificielle : Machine Learning et Data Mining": "330"
+        },
+        {
+          "IG331 - Big Data": "331"
+        },
+        {
+          "IG332 - Séminaires Data Science": "332"
+        }
+      ]
+    }
+  ]
 }
 
 

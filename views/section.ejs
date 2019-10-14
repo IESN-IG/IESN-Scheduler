@@ -1,0 +1,97 @@
+<%- include('blocks/header', {let: active = "index", let: title = "Home"}) %>
+<main class="page landing-page">
+    <section class="clean-block index" style="padding-bottom: 0;">
+        <div class="container">
+            <div class="block-heading" style="padding-top: 30px;">
+                <h3 class="text-info">Utilisation du site</h3>
+                <p>Hello ! 😄<br><br>Pour générer ton calendrier (.ics) perso, rien de plus simple : indique le(s) groupe(s) que tu suis ainsi que les cours présents dans ton PAE puis génère le lien et utilise le pour créer un calendrier Google !</p>
+            </div>
+            <div class="d-flex justify-content-center justify-content-xl-center block-heading" id="infoIndex" style="padding-top: 0;">
+                <div class="col-md-5 feature-box"><i class="icon-refresh icon"></i>
+                    <h4>Mise à jour automatique</h4>
+                    <p>Horaire toujours à jour sur PC, tablette etc sans passer par le portail !</p>
+                </div>
+                <div class="col-md-5 feature-box"><i class="icon-pencil icon"></i>
+                    <h4>Personnalisable</h4>
+                    <p>Possibilité de choisir uniquement les cours de votre PAE !</p>
+                </div>
+            </div>
+            <div class="alert alert-info text-center" role="alert"><span><strong>Besoin d'aide ?&nbsp;</strong><br>Consulte la page <a class="alert-link" href="help"><em><span style="text-decoration: underline;">Help</span></em>
+                    </a>&nbsp;!</span>
+            </div>
+        </div>
+        <div class="container">
+            <form id="genCalendar" method="post">
+                <div role="tablist" id="accordion-1">
+                    <div class="card">
+                        <div class="card-header" role="tab">
+                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1">Bloc 1</a></h5>
+                        </div>
+                        <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
+                            <div class="card-body">
+                                <div class="form-group"><label>Groupe</label><select class="form-control selectpicker" multiple="" title="Sélection du groupe..." name="Classes"><option value="1A">Groupe A</option><option value="1B">Groupe B</option><option value="1C">Groupe C</option><option value="1D">Groupe D</option><option value="1E">Groupe E</option><option value="1F" disabled>Groupe F</option><option value="1G" disabled>Groupe G</option><option value="1H" disabled>Groupe H</option></select></div>
+                                <div
+                                        class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker selectWithAllOption" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
+                                        <option value="1">Tous</option>
+                                        <% selectList[1].map(course=> { %>
+                                            <option value="<%= course.value%>"> <%= course.text %> </option>
+                                        <% }) %>
+                                    </select></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" role="tab">
+                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2" href="#accordion-1 .item-2">Bloc 2</a></h5>
+                        </div>
+                        <div class="collapse item-2" role="tabpanel" data-parent="#accordion-1">
+                            <div class="card-body">
+                                <div class="form-group"><label>Groupe</label><select class="form-control selectpicker" multiple="" title="Sélection du groupe..." name="Classes"><option value="2A">Groupe A</option><option value="2B">Groupe B</option><option value="2C" disabled>Groupe C</option><option value="2D" disabled>Groupe D</option><option value="2E" disabled>Groupe E</option><option value="2F" disabled>Groupe F</option><option value="2G" disabled>Groupe G</option><option value="2H" disabled>Groupe H</option></select></div>
+                                <div
+                                        class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker selectWithAllOption" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
+                                        <option value="2">Tous</option>
+                                        <% selectList[2].map(course=> { %>
+                                            <option value="<%= course.value%>"> <%= course.text %> </option>
+                                        <% }) %>
+                                    </select></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" role="tab">
+                            <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-3" href="#accordion-1 .item-3">Bloc 3</a></h5>
+                        </div>
+                        <div class="collapse item-3" role="tabpanel" data-parent="#accordion-1">
+                            <div class="card-body">
+                                <div class="form-group"><label>Groupe</label><select class="form-control selectpicker" multiple="" title="Sélection du groupe..." name="Classes"><option value="3A">Groupe A</option><option value="3B">Groupe B</option><option value="3C" disabled>Groupe C</option><option value="3D">Groupe D</option><option value="3E" disabled>Groupe E</option><option value="3F" disabled>Groupe F</option><option value="3G" disabled>Groupe G</option><option value="3H" disabled>Groupe H</option></select></div>
+                                <div
+                                        class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
+                                        <optgroup label="Tronc commun">
+                                            <% let i = 0;
+                                            selectList[3].forEach(course => { %>
+                                                <option value="<%= course.value %>"> <%= course.text %> </option>
+                                                <% i++;
+                                                if(i === 5){ %>
+                                        </optgroup>
+                                        <optgroup label="Option Mobile et Web avancé">
+                                            <% }
+                                            if(i === 7){ %>
+                                        </optgroup>
+                                        <optgroup label="Option Data Intelligence">
+                                            <% }
+                                            if(i === 10){ %>
+                                        </optgroup>
+                                        <optgroup label="Stage et TFE">
+                                            <% }}) %>
+                                        </optgroup>
+                                    </select></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><button class="btn btn-primary float-right" type="submit" style="margin-top: 1%;margin-bottom: 1%;">Générer le lien</button>
+                <div class="d-table" style="width: 100%;"><input class="form-control d-table-cell" type="text" id="calendarURL" value="<%= calendarURL %>" readonly="" style="margin-top: 1%;margin-bottom: 2%;width: 100%;"><span class="d-table-cell" style="width: 38px;height: 38px;"><button class="btn btn-secondary clipboard" id="copyButton" style="width: 38px;height: 38px;" data-toggle="tooltip" title="Clique ici pour copier Gilles" data-placement="right" type="button" data-clipboard-target="#calendarURL"><i class="far fa-copy"></i></button></span></div>
+            </form>
+        </div>
+    </section>
+</main>
+<%- include('blocks/footer', {let: active = "index"}) %>
