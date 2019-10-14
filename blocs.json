@@ -30,51 +30,50 @@
       "IG233 - Culture générale": "233"
     },
     {
-      "TroncCommun": [
-        {
-          "IG321 - Business Intelligence and Data Analytics": "321"
-        },
-        {
-          "IG322 - Développements Web": "322"
-        },
-        {
-          "IG323 - Conception de bases de données avancées": "323"
-        },
-        {
-          "IG324 - Aide à la décision managériale": "324"
-        },
-        {
-          "IG325 - Langues étrangères": "325"
-        },
-        {
-          "IG334 - Activité d'intégration professionnelle et travail de fin d'études": "334"
-        }
-      ],
-      "OptionWeb": [
-        {
-          "IG327 - Programmation et nouvelles technologies": "327"
-        },
-        {
-          "IG328 - Développement avancé d'application Web": "328"
-        }
-      ],
-      "OptionData": [
-        {
-          "IG330 - Intelligence artificielle : Machine Learning et Data Mining": "330"
-        },
-        {
-          "IG331 - Big Data": "331"
-        },
-        {
-          "IG332 - Séminaires Data Science": "332"
-        }
-      ]
+      "IG321 - Business Intelligence and Data Analytics": "321",
+      "IG322 - Développements Web": "322",
+      "IG323 - Conception de bases de données avancées": "323",
+      "IG324 - Aide à la décision managériale": "324",
+      "IG325 - Langues étrangères": "325",
+      "IG327 - Programmation et nouvelles technologies": "327",
+      "IG328 - Développement avancé d'application Web": "328",
+      "IG330 - Intelligence artificielle : Machine Learning et Data Mining": "330",
+      "IG331 - Big Data": "331",
+      "IG332 - Séminaires Data Science": "332",
+      "IG334 - Activité d'intégration professionnelle et travail de fin d'études": "334"
+    }
+  ],
+  "AU": [
+    {
+      "AU101 - Sécurité et bien-être": "101",
+      "AU102 - Mathématiques 1": "102",
+      "AU103 - Processus therm. et fluidiques": "103",
+      "AU104 - Labo mesures industrielles": "104",
+      "AU105 - Automatismes": "105",
+      "AU111 - Langues étrangères: niveau 1": "111"
+    },
+    {
+      "AU201 - Asservissement": "201",
+      "AU202 - Electronique 2": "202",
+      "AU203 - Compétences professionnelles transversales": "203",
+      "AU204 - Programmation 2": "204",
+      "AU205 - Réseaux": "205",
+      "AU206 - Programmation de systèmes robotisés": "206",
+      "AU207 - Electricité industrielle": "207",
+      "AU208 - Instrumentation et régulation": "208",
+      "AU209 - Electronique 3": "209",
+      "AU210 - Microcontrôleurs": "210",
+      "AU211 - Automatisation 2": "211",
+      "AU212 - Langues 2": "212"
+    },
+    {
+      "AU301 - Electronique embarquée": "301",
+      "AU302 - Laboratoire d'automatique": "302",
+      "AU303 - Projets": "303",
+      "AU304 - Veille technologique": "304",
+      "AU305 - Electronique de puissance": "305",
+      "AU306 - Langues 3": "306",
+      "AU307 - Stage": "307"
     }
   ]
 }
-
-
-
-
-
-

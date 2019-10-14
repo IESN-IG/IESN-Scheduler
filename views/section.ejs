@@ -1,4 +1,4 @@
-<%- include('blocks/header', {let: active = "index", let: title = "Home"}) %>
+<%- include('blocks/header', {let: active = "section", let: title = "Home"}) %>
 <main class="page landing-page">
     <section class="clean-block index" style="padding-bottom: 0;">
         <div class="container">
@@ -47,8 +47,7 @@
                         <div class="collapse item-2" role="tabpanel" data-parent="#accordion-1">
                             <div class="card-body">
                                 <div class="form-group"><label>Groupe</label><select class="form-control selectpicker" multiple="" title="Sélection du groupe..." name="Classes"><option value="2A">Groupe A</option><option value="2B">Groupe B</option><option value="2C" disabled>Groupe C</option><option value="2D" disabled>Groupe D</option><option value="2E" disabled>Groupe E</option><option value="2F" disabled>Groupe F</option><option value="2G" disabled>Groupe G</option><option value="2H" disabled>Groupe H</option></select></div>
-                                <div
-                                        class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker selectWithAllOption" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
+                                <div class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker selectWithAllOption" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
                                         <option value="2">Tous</option>
                                         <% selectList[2].map(course=> { %>
                                             <option value="<%= course.value%>"> <%= course.text %> </option>
@@ -64,8 +63,8 @@
                         <div class="collapse item-3" role="tabpanel" data-parent="#accordion-1">
                             <div class="card-body">
                                 <div class="form-group"><label>Groupe</label><select class="form-control selectpicker" multiple="" title="Sélection du groupe..." name="Classes"><option value="3A">Groupe A</option><option value="3B">Groupe B</option><option value="3C" disabled>Groupe C</option><option value="3D">Groupe D</option><option value="3E" disabled>Groupe E</option><option value="3F" disabled>Groupe F</option><option value="3G" disabled>Groupe G</option><option value="3H" disabled>Groupe H</option></select></div>
-                                <div
-                                        class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
+                                <%if(section === "IG"){%>
+                                <div class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
                                         <optgroup label="Tronc commun">
                                             <% let i = 0;
                                             selectList[3].forEach(course => { %>
@@ -84,7 +83,16 @@
                                         <optgroup label="Stage et TFE">
                                             <% }}) %>
                                         </optgroup>
-                                    </select></div>
+                                    </select>
+                                </div>
+                                <%}else{%>
+                                    <div class="form-group"><label>Cours</label><select data-none-results-text="Aucun résultat pour {0}" class="form-control selectpicker selectWithAllOption" multiple data-live-search="true" title="Sélection des cours..." name="Courses">
+                                            <option value="3">Tous</option>
+                                            <% selectList[3].map(course=> { %>
+                                                <option value="<%= course.value%>"> <%= course.text %> </option>
+                                            <% }) %>
+                                        </select></div>
+                                <%}%>
                             </div>
                         </div>
                     </div>
@@ -94,4 +102,4 @@
         </div>
     </section>
 </main>
-<%- include('blocks/footer', {let: active = "index"}) %>
+<%- include('blocks/footer', {let: active = "section"}) %>

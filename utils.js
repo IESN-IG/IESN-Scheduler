@@ -1,8 +1,9 @@
 const credentials = require('./credentials.json');
 const axios = require('axios');
 const blocs = require('./blocs.json');
-//console.log(blocs.IG[2].TroncCommun)
 const _ = require('lodash');
+const sections = {"AU":1, "CF":2, "CG":3, "CP":4, "DR":5, "IG":6, "IR":68, "MK":7, "TI":10};
+
 const axiosPortailLog = axios.create({
     baseURL: 'https://portail.henallux.be/api/',
     timeout: 15000,
@@ -59,16 +60,16 @@ module.exports = {
             })
     },
 
-    getSelectList: () => {
+    getSelectList: (section) => {
         let selectList = {1: [], 2: [], 3: []};
         /* Parcours du fichiers "blocs.json" pour préparer une liste qui sera utilisée pour remplir les selectss dans la view index.ejs */
-        for (let bloc in blocs) {
-            for (let courses in blocs[bloc]) {
+        for(let i = 0; i < blocs[section].length; i++){
+            for (let courses in blocs[section][i]) {
                 let tempSelect = {
-                    value: blocs[bloc][courses],
+                    value: blocs[section][i][courses],
                     text: courses
                 };
-                selectList[bloc].push(tempSelect);
+                selectList[(i+1)].push(tempSelect);
             }
         }
         return selectList;
@@ -97,36 +98,44 @@ module.exports = {
         return paramCrsFull
     },
 
-    getCurrentCodes: () => {
-        return JSON.parse(currentCodes);
+    getCurrentCodes: (section) => {
+        return JSON.parse(currentCodes)[section];
     },
 
     getAxiosPortailLog: () => {
         return axiosPortailLog;
+    },
+
+    getSections: () =>{
+        return Object.keys(sections);
     }
 };
 
 function searchClassesCodes() {
     return new Promise(async (resolve, reject) => {
         let updatedJson = {};
+        let sectionsKeys = module.exports.getSections();
         try {
-            let resBlocsID = await axiosPortailLog.get('https://portail.henallux.be/api/classes/orientation_and_implantation/6/1', {
-                transformResponse: [function (data) {
-                    let jsonData = JSON.parse(data);
-                    return jsonData.data.map(item => item.id)
-                }]
-            });
-
-            for (let bloc of resBlocsID.data) {
-                let resClassesID = await axiosPortailLog.get(`https://portail.henallux.be/api/classes/classe_and_orientation_and_implantation/${bloc}/6/1`, {
+            for(let section of sectionsKeys){
+                updatedJson[section] = {};
+                let resBlocsID = await axiosPortailLog.get(`https://portail.henallux.be/api/classes/orientation_and_implantation/${sections[section]}/1`, {
                     transformResponse: [function (data) {
                         let jsonData = JSON.parse(data);
-                        return jsonData.data.filter(grp => grp.classe);
+                        return jsonData.data.map(item => item.id)
                     }]
                 });
-                for (let classe of resClassesID.data) {
-                    let classeID = classe.annee.charAt(0) + classe.classe;
-                    updatedJson[classeID] = classe.id;
+
+                for (let bloc of resBlocsID.data) {
+                    let resClassesID = await axiosPortailLog.get(`https://portail.henallux.be/api/classes/classe_and_orientation_and_implantation/${bloc}/${sections[section]}/1`, {
+                        transformResponse: [function (data) {
+                            let jsonData = JSON.parse(data);
+                            return jsonData.data.filter(grp => grp.classe);
+                        }]
+                    });
+                    for (let classe of resClassesID.data) {
+                        let classeID = classe.annee.charAt(0) + classe.classe;
+                        updatedJson[section][classeID] = classe.id
+                    }
                 }
             }
             resolve(updatedJson);

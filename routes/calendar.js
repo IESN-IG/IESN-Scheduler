@@ -6,7 +6,6 @@ const ical = require("ical-generator");
 const mobileWebCourses = Array.from(require('../settings.json').webOptionCourses);
 const patternDate = /(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/;
 const dataIntelligenceGroupe = require('../settings.json').dataIntelligenceClasse;
-const selectList = utils.getSelectList();
 const axiosPortailLog = utils.getAxiosPortailLog();
 
 let courses; /* Contiendra la liste des cours que l'utilisateur veut suivre */
@@ -14,11 +13,13 @@ let coreCourses; /* Contiendra les cours communs / déjà rencontrés pour ne pa
 let isBloc1; // L'utilisateur est du bloc 1
 let isBloc2; // L'utilisateur est du bloc 2
 let isBloc3; // L'utilisateur est du bloc 3
+let sectionName;
 
-router.get('/', function (req, res, next) {
+router.get('/:sectionName', function (req, res, next) {
+    sectionName = req.params.sectionName;
     coreCourses = new Set();
     courses = [];
-    let classesCodes = utils.getCurrentCodes();
+    let classesCodes = utils.getCurrentCodes(sectionName);
     let calendar = ical({name: "Cours", timezone: "Europe/Brussels"});
 
     if (req.query.grp.every(group => Object.keys(classesCodes).includes(group))) { /* Check que les groupes existent bien dans le fichier JSON */
@@ -30,7 +31,7 @@ router.get('/', function (req, res, next) {
         axiosPortailLog.get(`https://portail.henallux.be/api/plannings/promotion/${fetchURLParams}`, {
             transformResponse: [function (data){
                 let jsonData = JSON.parse(data);
-                return req.query.grp.includes(dataIntelligenceGroupe) ? jsonData.filter(cleanCoursesDataOption) : jsonData.filter(cleanCourses) /* Si l'option est Data Intelligence, alors on enlève les cours de l'option web par défaut (merci henallux d'avoir bien fait les horaires)*/
+                return (req.query.grp.includes(dataIntelligenceGroupe) && sectionName === 'IG') ? jsonData.filter(cleanCoursesDataOption) : jsonData.filter(cleanCourses) /* Si l'option est Data Intelligence, alors on enlève les cours de l'option web par défaut (merci henallux d'avoir bien fait les horaires)*/
             }]
         })
             .then(response => {
@@ -54,7 +55,7 @@ router.get('/', function (req, res, next) {
     } else {
         res.render('index', {
             calendarURL: '',
-            selectList: selectList,
+            selectList: utils.getSelectList(req.params.sectionName),
             calendarURLRedirect: false,
             toastrNotif: true,
             toastrObject: {
@@ -90,7 +91,7 @@ function cleanCourses(course) {
         coreCourses.add(transformedString);
     }
     let codeCourse = course.text.substring(0, 5); // On chope l'ID du cours
-    return (courses.some(c => codeCourse === c) || codeCourse.substring(0, 2).toUpperCase() !== 'IG') && !coreCourse; // On check si le cours est dans la liste de cours choisis (OU si il ne commence pas par un code, ex Team Building) et que ce n'est pas un cours commun (déjà ajouté)
+    return (courses.some(c => codeCourse === c) || codeCourse.substring(0, 2).toUpperCase() !== sectionName) && !coreCourse; // On check si le cours est dans la liste de cours choisis (OU si il ne commence pas par un code, ex Team Building) et que ce n'est pas un cours commun (déjà ajouté)
 }
 
 /* Enlève les cours de l'option Web dans l'horaire des Data*/
@@ -107,12 +108,12 @@ function blocsDetermine(classes){
 
 function addCourse(courseParams, blocNum){
     if (!courseParams || courseParams.includes("all")) {
-        for (let bloc of Object.values(blocs[blocNum])) {
-            courses.push("IG" + bloc);
+        for (let bloc of Object.values(blocs[sectionName][(blocNum - 1)])) {
+            courses.push(sectionName + bloc);
         }
     } else {
         courseParams.forEach(course => {
-            courses.push("IG" + course);
+            courses.push(sectionName + course);
         })
     }
 }
