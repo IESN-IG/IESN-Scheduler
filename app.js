@@ -3,7 +3,10 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const rfs = require('rotating-file-stream');
+const flash = require('express-flash');
+const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
+
 const http = require('http');
 const indexRouter = require('./routes/index');
 const calendarRouter = require('./routes/calendar');
@@ -12,6 +15,7 @@ const sectionRouter = require('./routes/section');
 const serverWebPort = require('./settings.json').serverWebPort;
 const utils = require('./utils.js');
 const cron = require('node-cron');
+const credentials = require('./credentials');
 
 // Update des codes pour les requêtes toutes les 5minutes entre 6h et 6h30
 cron.schedule('0-30/1 6 * * *', utils.updateClassesCodes);
@@ -19,23 +23,24 @@ utils.load();
 
 const app = express();
 
-// create a rotating write stream
-const accessLogStream = rfs('access.log', {
-    interval: '1d',
-    path: path.join(__dirname, 'log')
-});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('combined', {
-    stream: accessLogStream, skip: function (req, res) {
-        return res.statusCode < 400
-    }
-}));
+app.use(logger('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(session({
+    store: new MemoryStore({
+        checkPeriod: 86400000
+    }),
+    secret: credentials.secretCookieString,
+    resave: false,
+    saveUninitialized: false,
+}));
+
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -50,7 +55,8 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-    res.render('error', {errorCode: err.status, toastrNotif: false});
+    res.status(err.status || 500);
+    utils.renderTemplate(res, req, 'error', {title: 'Erreur ' + err.status, error: err});
 });
 
 http.createServer(app).listen(serverWebPort, function () {

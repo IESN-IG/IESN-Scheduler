@@ -9,24 +9,22 @@ const sections = utils.getSections();
  */
 
 router.get('/:sectionName', function (req, res, next) {
-    if(sections.includes(req.params.sectionName)){
-        let selectList = utils.getSelectList(req.params.sectionName);
-        res.render('section', {
-            calendarURL: '',
+    if (sections.includes(req.params.sectionName)) {
+        let selectList = req.params.sectionName === 'IG' ? utils.getSelectList(req.params.sectionName) : null;
+        utils.renderTemplate(res, req, 'section', {
+            section: req.params.sectionName,
             selectList: selectList,
-            calendarURLRedirect: false,
-            toastrNotif: false,
-            section: req.params.sectionName
+            calendarURL: req.flash('calendarURL'),
+            toCalendarURL: req.flash('toCalendarURL'),
+            title: "Section " + req.params.sectionName,
+            classes: utils.getClasses(req.params.sectionName),
+            hasBloc1: utils.determineIfSectionHasBloc(req.params.sectionName, 1),
+            hasBloc2: utils.determineIfSectionHasBloc(req.params.sectionName, 2),
+            hasBloc3: utils.determineIfSectionHasBloc(req.params.sectionName, 3)
         });
-    }else{
-        res.render('index', {
-            toastrNotif: true,
-            toastrObject: {
-                type: 'error',
-                text: 'Une section incorrecte a été rentrée',
-                timeout: 5000
-            }
-        });
+    } else {
+        req.flash('errorToast', 'Une mauvaise section a été entrée');
+        res.redirect('/');
     }
 
 });
@@ -34,18 +32,8 @@ router.get('/:sectionName', function (req, res, next) {
 router.post('/:sectionName', function (req, res, next) {
     let selectList = utils.getSelectList(req.params.sectionName);
     if (!req.body.Classes) { // Aucun groupe sélectionné
-        res.render('section', {
-            calendarURL: '',
-            selectList: selectList,
-            calendarURLRedirect: false,
-            toastrNotif: true,
-            toastrObject: {
-                type: 'error',
-                text: 'Aucun groupe sélectionné',
-                timeout: 5000
-            },
-            section: req.params.sectionName
-        });
+        req.flash('errorToast', 'Aucun groupe sélectionné');
+        res.redirect('/');
     } else {
         /* Génération (ou copie si plusieurs groupes sélectionnés de l'array contenant les groupes */
         let classes = [];
@@ -65,18 +53,11 @@ router.post('/:sectionName', function (req, res, next) {
 
         const paramCrsFull = utils.getFullParamsCours(courses);
 
-        res.render('section', {
-            calendarURL: `https://iesn.thibaultclaude.be/calendar/${req.params.sectionName}?${classes.map(classe => `grp[]=${classe}`).join('&')}${paramCrsFull}`,
-            selectList: selectList,
-            calendarURLRedirect: true,
-            toastrNotif: true,
-            toastrObject: {
-                type: 'success',
-                text: 'Calendrier généré avec succès',
-                timeout: 2000
-            },
-            section: req.params.sectionName
-        });
+        req.flash('successToast', 'Calendrier généré avec succès');
+        req.flash('calendarURL', `https://iesn.thibaultclaude.be/calendar/${req.params.sectionName}?${classes.map(classe => `grp[]=${classe}`).join('&')}${paramCrsFull}`);
+        req.flash('toCalendarURL', true);
+
+        res.redirect('/section/' + req.params.sectionName);
     }
 });
 

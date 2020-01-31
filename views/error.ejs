@@ -1,12 +1,31 @@
-<%- include('blocks/header', {let: active = "error", let: title = "Error", let: errNumber = errorCode}) %>
+<%- include('blocks/header') %>
 <main class="page">
     <section class="clean-block error">
         <div class="container">
             <div class="block-heading">
-                <h2 class="text-info">Whoooops <%= errorCode %>!</h2>
-                <p>Un petit problème est survenu 👀</p>
+                <h2 class="text-info">Whoooops <%= error.status ? error.status + " - " : "" %> <%= error.message %>
+                    !</h2>
+                <% switch(error.status){
+                case 404: %>
+                <img class='img-fluid' src="https://media.giphy.com/media/l41lFw057lAJQMwg0/giphy.gif">
+                <% break;
+                case 500: %>
+                <img class='img-fluid' src="https://media.giphy.com/media/m12EDnP8xGLy8/giphy.gif">
+                <% break;
+                case 503: %>
+                <img class='img-fluid' src="https://media.giphy.com/media/m12EDnP8xGLy8/giphy.gif">
+                <% break;
+                case 403: %>
+                <img class='img-fluid' src="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif">
+                <% break;
+                case 401: %>
+                <img class='img-fluid' src="https://media.giphy.com/media/H7JD0pfyksePe/giphy.gif">
+                <% break;
+                    default: %>
+                <img class='img-fluid' src="https://media.giphy.com/media/XeXzWgD6P4LG8/giphy.gif">
+                <% } %>
             </div>
         </div>
     </section>
 </main>
-<%- include('blocks/footer', {let: active = "error"}) %>
+<%- include('blocks/footer') %>

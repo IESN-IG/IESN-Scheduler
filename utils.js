@@ -2,8 +2,8 @@ const credentials = require('./credentials.json');
 const axios = require('axios');
 const blocs = require('./blocs.json');
 const _ = require('lodash');
-const sections = {"AU":1, "CF":2, "CG":3, "CP":4, "DR":5, "IG":6, "IR":68, "MK":7, "TI":10};
-
+const path = require('path');
+const sections = require('./sections');
 const axiosPortailLog = axios.create({
     baseURL: 'https://portail.henallux.be/api/',
     timeout: 15000,
@@ -41,7 +41,10 @@ module.exports = {
         axios({
             method: 'post',
             url: credentials.webhookURL,
-            data: JSON.stringify(discordMessage)
+            data: JSON.stringify(discordMessage),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
     },
 
@@ -106,8 +109,31 @@ module.exports = {
         return axiosPortailLog;
     },
 
-    getSections: () =>{
+    getSections: () => {
         return Object.keys(sections);
+    },
+
+    renderTemplate: (res, req, template, data = {}) => {
+        const baseData = {
+            path: req.path,
+            active: template,
+            errorMsg: req.flash('errorToast'),
+            successMsg: req.flash('successToast'),
+            infoMsg: req.flash('infoToast'),
+            sections: sections
+        };
+        res.render(path.resolve(`./views/${template}`), Object.assign(baseData, data));
+    },
+
+    // Permet de vérifier si une section a un bloc : exemple la section CF n'a pas le bloc 1
+    determineIfSectionHasBloc(section, bloc) {
+        let classes = module.exports.getClasses(section);
+        return classes.includes(bloc + 'A')
+    },
+
+    getClasses(section) {
+        let currCodes = module.exports.getCurrentCodes(section);
+        return Object.keys(currCodes);
     }
 };
 
@@ -118,7 +144,7 @@ function searchClassesCodes() {
         try {
             for(let section of sectionsKeys){
                 updatedJson[section] = {};
-                let resBlocsID = await axiosPortailLog.get(`https://portail.henallux.be/api/classes/orientation_and_implantation/${sections[section]}/1`, {
+                let resBlocsID = await axiosPortailLog.get(`https://portail.henallux.be/api/classes/orientation_and_implantation/${sections[section].id}/1`, {
                     transformResponse: [function (data) {
                         let jsonData = JSON.parse(data);
                         return jsonData.data.map(item => item.id)
@@ -126,7 +152,7 @@ function searchClassesCodes() {
                 });
 
                 for (let bloc of resBlocsID.data) {
-                    let resClassesID = await axiosPortailLog.get(`https://portail.henallux.be/api/classes/classe_and_orientation_and_implantation/${bloc}/${sections[section]}/1`, {
+                    let resClassesID = await axiosPortailLog.get(`https://portail.henallux.be/api/classes/classe_and_orientation_and_implantation/${bloc}/${sections[section].id}/1`, {
                         transformResponse: [function (data) {
                             let jsonData = JSON.parse(data);
                             return jsonData.data.filter(grp => grp.classe);

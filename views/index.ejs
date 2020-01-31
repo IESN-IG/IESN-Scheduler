@@ -1,7 +1,27 @@
-<%- include('blocks/header', {let: active = "index", let: title = "Home"}) %>
+<%- include('blocks/header') %>
 <main class="page landing-page">
     <!-- Start: SectionPicker -->
-    <section style="padding-top: 15px;">
+    <section class="clean-block index">
+        <div id="fridayAlert" role="alert"></div>
+        <div class="container">
+            <div class="block-heading" style="padding-top: 30px;">
+                <h3 class="text-info">Utilisation du site</h3>
+                <p>Hello ! 😄<br><br>Pour générer ton calendrier (.ics), rien de plus simple : indique le(s) groupe(s)
+                    que tu suis puis génère le lien et utilise le pour créer un calendrier Google !</p>
+            </div>
+            <div class="d-flex justify-content-center justify-content-xl-center block-heading" id="infoIndex"
+                 style="padding-top: 0;">
+                <div class="col-md-5 feature-box"><i class="icon-refresh icon"></i>
+                    <h4>Mise à jour automatique</h4>
+                    <p>Horaire toujours à jour sur PC, tablette etc sans passer par le portail !</p>
+                </div>
+            </div>
+            <div class="alert alert-info text-center" role="alert"><span><strong>Besoin d'aide ?&nbsp;</strong><br>Consulte la page <a
+                            class="alert-link" href="/help"><em><span
+                                    style="text-decoration: underline;">Help</span></em>
+                    </a>&nbsp;!</span>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <!-- Start: Automatique -->
@@ -117,4 +137,4 @@
     </section>
     <!-- End: SectionPicker -->
 </main>
-<%- include('blocks/footer', {let: active = "index"}) %>
+<%- include('blocks/footer') %>

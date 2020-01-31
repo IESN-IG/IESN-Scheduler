@@ -53,17 +53,8 @@ router.get('/:sectionName', function (req, res, next) {
                 utils.updateClassesCodes();
             })
     } else {
-        res.render('index', {
-            calendarURL: '',
-            selectList: utils.getSelectList(req.params.sectionName),
-            calendarURLRedirect: false,
-            toastrNotif: true,
-            toastrObject: {
-                type: 'error',
-                text: 'Un groupe non validé a été rentré',
-                timeout: 5000
-            }
-        });
+        req.flash('errorToast', 'Un groupe non validé a été rentré');
+        res.redirect('/');
     }
 });
 

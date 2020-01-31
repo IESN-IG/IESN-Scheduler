@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const utils = require('../utils');
 
 router.get('/', function (req, res, next) {
-    res.render('help', { toastrNotif: false});
+    utils.renderTemplate(res, req, 'help', {
+        title: 'Help'
+    });
 });
 
 module.exports = router;

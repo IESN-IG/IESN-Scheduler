@@ -4,13 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title><%= title %> <%= (active === "error" ? errorCode : "") %> - IESN Scheduler</title>
+    <title><%= title %> - IESN Scheduler</title>
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
@@ -24,12 +26,46 @@
 <!-- Start: Header Dark -->
 <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark clean-navbar">
     <div class="container"><a class="navbar-brand" href="/">IESN Scheduler</a>
-    <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse"
              id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link <%= (active === "index" ? "active" : "") %>" href="/">Accueil</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link <%= (active === "help" ? "active" : "") %>" href="/help">Help</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link <%= (active === "index" ? "active" : "") %>"
+                                                            href="/">Accueil</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle <%= active === "section" ? "active" : "" %>" href="#"
+                       id="navbarSections" role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                        <% if(active === 'section'){ %>
+                            <%= sections[section].label %>
+                        <% }else{ %>
+                            Sections
+                        <% } %>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarSections">
+                        <a class="dropdown-item <%= (active === 'section' && section === "AU" ? "active" : "") %>"
+                           href="/section/AU">Automatique</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "CF" ? "active" : "") %>"
+                           href="/section/CF">Comptabilité - Fiscalité</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "CG" ? "active" : "") %>"
+                           href="/section/CG">Comptabilité - Gestion</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "CP" ? "active" : "") %>"
+                           href="/section/CP">Comptabilité</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "DR" ? "active" : "") %>"
+                           href="/section/DR">Droit</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "MK" ? "active" : "") %>"
+                           href="/section/MK">Marketing</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "IG" ? "active" : "") %>"
+                           href="/section/IG">Informatique de Gestion</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "IR" ? "active" : "") %>"
+                           href="/section/IR">Sécurité des systèmes</a>
+                        <a class="dropdown-item <%= (active === 'section' && section === "TI" ? "active" : "") %>"
+                           href="/section/TI">Technologie de l'informatique</a>
+                    </div>
+                </li>
+                <li class="nav-item" role="presentation"><a class="nav-link <%= (active === "help" ? "active" : "") %>"
+                                                            href="/help">Help</a></li>
             </ul>
         </div>
     </div>

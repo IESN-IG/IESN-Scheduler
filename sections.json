@@ -1,0 +1,38 @@
+{
+  "AU": {
+    "label": "Automatique",
+    "id": 1
+  },
+  "CF": {
+    "label": "Comptabilité - Fiscalité",
+    "id": 2
+  },
+  "CG": {
+    "label": "Comptabilité - Gestion",
+    "id": 3
+  },
+  "CP": {
+    "label": "Comptabilité",
+    "id": 4
+  },
+  "DR": {
+    "label": "Droit",
+    "id": 5
+  },
+  "MK": {
+    "label": "Marketing",
+    "id": 7
+  },
+  "IG": {
+    "label": "Informatique de Gestion",
+    "id": 6
+  },
+  "IR": {
+    "label": "Sécurité des Systèmes",
+    "id": 68
+  },
+  "TI": {
+    "label": "Technologie de l'Informatique",
+    "id": 10
+  }
+}

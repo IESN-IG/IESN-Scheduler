@@ -1,6 +1,7 @@
-<%- include('blocks/header', {let: active = "help", let: title = "Help"}) %>
+<%- include('blocks/header') %>
 <main class="page">
     <section class="clean-block help">
+        <div id="fridayAlert" role="alert"></div>
         <div class="container">
             <div class="alert alert-warning text-center" role="alert"><span><strong>Attention !&nbsp;</strong><br>Le calendrier Google se met automatiquement à jour une seule fois par jour (restriction Google)<br>Le calendrier Outlook se met automatiquement à jour toutes les 3 heures en général (restriction Outlook)</span>
             </div>
@@ -118,4 +119,4 @@
         </div>
     </section>
 </main>
-<%- include('blocks/footer', {let: active = "help"}) %>
+<%- include('blocks/footer') %>
