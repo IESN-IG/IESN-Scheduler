@@ -4,5 +4,18 @@
     "IG328"
   ],
   "dataIntelligenceClasse": "3D",
-  "serverWebPort": "8181"
+  "serverWebPort": "8181",
+  "languagesCourses": [
+    "IG228",
+    "IG325"
+  ],
+  "labelENRenfort": [
+    "Anglais renforcement (option)",
+    "Anglais renforcement"
+  ],
+  "labelALNL": [
+    "Néerlandais/Allemand (options)",
+    "Néerlandais / Allemand",
+    "Néerlandais/Allemand"
+  ]
 }

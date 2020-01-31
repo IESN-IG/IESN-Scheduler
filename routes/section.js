@@ -30,10 +30,13 @@ router.get('/:sectionName', function (req, res, next) {
 });
 
 router.post('/:sectionName', function (req, res, next) {
-    let selectList = utils.getSelectList(req.params.sectionName);
+    if (!sections.includes(req.params.sectionName)) {
+        req.flash('errorToast', 'Une mauvaise section a été entrée');
+        res.redirect('/');
+    }
     if (!req.body.Classes) { // Aucun groupe sélectionné
         req.flash('errorToast', 'Aucun groupe sélectionné');
-        res.redirect('/');
+        res.redirect('/section/' + req.params.sectionName);
     } else {
         /* Génération (ou copie si plusieurs groupes sélectionnés de l'array contenant les groupes */
         let classes = [];
@@ -51,7 +54,15 @@ router.post('/:sectionName', function (req, res, next) {
             courses = req.body.Courses;
         }
 
-        const paramCrsFull = utils.getFullParamsCours(courses);
+        /* Idem mais avec les langues */
+        let languages = [];
+        if (!Array.isArray(req.body.SecondLanguage)) {
+            languages.push(req.body.SecondLanguage);
+        } else {
+            languages = req.body.SecondLanguage;
+        }
+
+        const paramCrsFull = utils.getFullParamsCours(courses, languages);
 
         req.flash('successToast', 'Calendrier généré avec succès');
         req.flash('calendarURL', `https://iesn.thibaultclaude.be/calendar/${req.params.sectionName}?${classes.map(classe => `grp[]=${classe}`).join('&')}${paramCrsFull}`);

@@ -78,7 +78,7 @@ module.exports = {
         return selectList;
     },
 
-    getFullParamsCours: (courses) => {
+    getFullParamsCours: (courses, languages) => {
         /*
         Parcours des cours sélectionnés pour la génération des String pour les paramètres URL
             - A revoir ?
@@ -89,14 +89,21 @@ module.exports = {
         let paramCrs2 = `${tempCrs2.includes("2") ? 'crs2[]=all' : tempCrs2.map(crs => `crs2[]=${crs}`).join('&')}`;
         let tempCrs3 = courses.filter(crs => crs === "3" || (crs >= 300 && crs <= 399));
         let paramCrs3 = `${tempCrs3.includes("3") ? 'crs3[]=all' : tempCrs3.map(crs => `crs3[]=${crs}`).join('&')}`;
+        let tempLanguage2 = languages[0] ? languages.filter(lang => lang.substring(--lang.length) === "2") : [];
+        let paramLang2 = tempLanguage2.map(lang => `optl2=${lang}`).join('&');
+        let tempLanguage3 = languages[0] ? languages.filter(lang => lang.substring(--lang.length) === "3") : [];
+        let paramLang3 = tempLanguage3.map(lang => `optl3=${lang}`).join('&');
 
         /*
             Concatenation des paramètres précédemment créés
                 - A revoir?
          */
+
         let paramCrsFull = (paramCrs1 && paramCrs1.length > 0) ? '&' + paramCrs1 : '';
         paramCrsFull += (paramCrs2 && paramCrs2.length > 0) ? '&' + paramCrs2 : '';
         paramCrsFull += (paramCrs3 && paramCrs3.length > 0) ? '&' + paramCrs3 : '';
+        paramCrsFull += (paramLang2 && paramLang2.length > 0) ? '&' + paramLang2 : '';
+        paramCrsFull += (paramLang3 && paramLang3.length > 0) ? '&' + paramLang3 : '';
 
         return paramCrsFull
     },
