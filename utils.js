@@ -51,10 +51,8 @@ module.exports = {
     updateClassesCodes: (onLoad = false) => {
         searchClassesCodes()
             .then(res => {
-                let reqCodes = JSON.stringify(res);
-
-                if(!_.isEqual(currentCodes, reqCodes)){
-                    currentCodes = reqCodes;
+                if (!_.isEqual(currentCodes, res)) {
+                    currentCodes = res;
                     module.exports.sendDiscordMessage(onLoad ? "Codes added to cache" : "Codes updated", false);
                 }
             })
@@ -109,7 +107,7 @@ module.exports = {
     },
 
     getCurrentCodes: (section) => {
-        return JSON.parse(currentCodes)[section];
+        return currentCodes[section];
     },
 
     getAxiosPortailLog: () => {

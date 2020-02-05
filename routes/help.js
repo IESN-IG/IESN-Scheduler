@@ -4,7 +4,7 @@ const utils = require('../utils');
 
 router.get('/', function (req, res, next) {
     utils.renderTemplate(res, req, 'help', {
-        title: 'Help'
+        title: 'Aide'
     });
 });
 

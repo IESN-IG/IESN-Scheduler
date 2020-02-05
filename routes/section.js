@@ -16,7 +16,7 @@ router.get('/:sectionName', function (req, res, next) {
             selectList: selectList,
             calendarURL: req.flash('calendarURL'),
             toCalendarURL: req.flash('toCalendarURL'),
-            title: "Section " + req.params.sectionName,
+            title: "Section ",
             classes: utils.getClasses(req.params.sectionName),
             hasBloc1: utils.determineIfSectionHasBloc(req.params.sectionName, 1),
             hasBloc2: utils.determineIfSectionHasBloc(req.params.sectionName, 2),

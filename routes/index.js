@@ -8,7 +8,7 @@ const utils = require('../utils');
  */
 
 router.get('/', function (req, res, next) {
-    utils.renderTemplate(res, req, 'index', {title: "Home"});
+    utils.renderTemplate(res, req, 'index', {title: "Accueil"});
 });
 
 
