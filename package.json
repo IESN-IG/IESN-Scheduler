@@ -22,6 +22,6 @@
     "morgan": "~1.9.1",
     "node-cron": "^2.0.3",
     "readme-md-generator": "^0.6.2",
-    "rotating-file-stream": "^1.4.3"
+    "rotating-file-stream": "^2.1.3"
   }
 }
