@@ -7,6 +7,7 @@ require("dotenv").config();
  * Retourne les settings
  * @method
  * @returns {Object}
+ * @category Database
  */
 const getSettings = () => db.get(`${process.env.DB_PREFIX}.settings`) || {};
 
@@ -14,6 +15,7 @@ const getSettings = () => db.get(`${process.env.DB_PREFIX}.settings`) || {};
  * Initialise la BDD au démarrage
  * @method
  * @returns {void}
+ * @category Database
  */
 const initDatabase = () => {
     const currentSettings = getSettings();
@@ -30,6 +32,7 @@ const initDatabase = () => {
  * @method
  * @param {string} [section=IG] 
  * @returns {Object}
+ * @category Database
  */
 const getSectionDataBySection = (section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}`);
 
@@ -39,6 +42,7 @@ const getSectionDataBySection = (section = "IG") => db.get(`${process.env.DB_PRE
  * @param {string|number} bloc 
  * @param {string} [section=IG] 
  * @returns {Object}
+ * @category Database
  */
 const getSectionDataBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}.${bloc}`);
 
@@ -48,6 +52,7 @@ const getSectionDataBySectionAndBloc = (bloc, section = "IG") => db.get(`${proce
  * @param {string|number} bloc 
  * @param {string} [section=IG] 
  * @returns {string[]}
+ * @category Database
  */
 const getGroupsBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}.${bloc}.groups`);
 
@@ -57,6 +62,7 @@ const getGroupsBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.en
  * @param {string|number} bloc 
  * @param {string} [section=IG] 
  * @returns {Object[]}
+ * @category Database
  */
 const getClassesBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}.${bloc}.classes`);
 
@@ -64,6 +70,7 @@ const getClassesBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.e
  * Retourne les sections disponibles
  * @method
  * @returns {string[]} Sections disponibles
+ * @category Database
  */
 const getSections = () => Object.keys(db.get(`${process.env.DB_PREFIX}.globalSectionsData`));
 
@@ -72,6 +79,7 @@ const getSections = () => Object.keys(db.get(`${process.env.DB_PREFIX}.globalSec
  * @method
  * @param {string} key 
  * @returns {string|number}
+ * @category Database
  */
 const getSettingByKey = (key) => db.get(`${process.env.DB_PREFIX}.settings.${key}`);
 
@@ -79,6 +87,7 @@ const getSettingByKey = (key) => db.get(`${process.env.DB_PREFIX}.settings.${key
  * Retourne les codes API enregistrés
  * @method
  * @returns {Object}
+ * @category Database
  */
 const getCurrentCodes = () => db.get(`${process.env.DB_PREFIX}.codes`) || {};
 
@@ -87,6 +96,7 @@ const getCurrentCodes = () => db.get(`${process.env.DB_PREFIX}.codes`) || {};
  * @method
  * @param {Object} codes 
  * @returns {void}
+ * @category Database
  */
 const setCurrentCodes = (codes) => db.set(`${process.env.DB_PREFIX}.codes`, codes);
 

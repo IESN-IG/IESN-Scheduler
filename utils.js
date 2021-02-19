@@ -17,6 +17,7 @@ const axiosPortail = axios.create({
  * @method
  * @param {Object} newCodes - Nouveaux codes API fetchés
  * @returns {boolean} Les codes API ont changé, ou non
+ * @category Utils
  */
 const codesAreEquals = (newCodes) => {
   const currentCodes = getCurrentCodes();
@@ -36,6 +37,7 @@ const codesAreEquals = (newCodes) => {
  * Cherche les codes correspondants aux groupes
  * @method
  * @returns {Promise} Promise contenant les codes
+ * @category Utils
  */
 const searchClassesCodes = () => {
   return new Promise(async (resolve, reject) => {
@@ -82,6 +84,7 @@ const searchClassesCodes = () => {
  * @typedef {Object} ContenuDiscord
  * @property {string} title
  * @property {string} text
+ * @category Utils
  */
 /**
  * Envoie un webhook Discord
@@ -91,6 +94,7 @@ const searchClassesCodes = () => {
  * @example
  *  sendDiscordMessage({ title: "Titre du webhook", text: "Text du webhook"})
  * @returns {void}
+ * @category Utils
  */
 const sendDiscordMessage = ({ title, text }, isError = true) => {
   const discordMessage = {
@@ -123,6 +127,7 @@ const sendDiscordMessage = ({ title, text }, isError = true) => {
  * @method
  * @param {boolean} [onLoad=false] 
  * @returns {void}
+ * @category Utils
  */
 const updateClassesCodes = (onLoad = false) => {
   searchClassesCodes()
@@ -153,6 +158,7 @@ const updateClassesCodes = (onLoad = false) => {
  * Charge les informations pour la première fois
  * @method
  * @returns {void}
+ * @category Utils
  */
 const load = () => {
     initDatabase();

@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation IESN Scheduler utils.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Documentation IESN Scheduler</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/IESN-IG/IESN-Scheduler"
+                        >
+                            Github
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Database</h2><h3>Global</h3><ul><li><a href="global.html#getBlocsBySection">getBlocsBySection</a></li><li><a href="global.html#getClassesBySectionAndBloc">getClassesBySectionAndBloc</a></li><li><a href="global.html#getCurrentCodes">getCurrentCodes</a></li><li><a href="global.html#getGroupsBySectionAndBloc">getGroupsBySectionAndBloc</a></li><li><a href="global.html#getSectionDataBySection">getSectionDataBySection</a></li><li><a href="global.html#getSectionDataBySectionAndBloc">getSectionDataBySectionAndBloc</a></li><li><a href="global.html#getSections">getSections</a></li><li><a href="global.html#getSettingByKey">getSettingByKey</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getValidBlocsAndGroupsBySection">getValidBlocsAndGroupsBySection</a></li><li><a href="global.html#initDatabase">initDatabase</a></li><li><a href="global.html#setCurrentCodes">setCurrentCodes</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Global</h3><ul><li><a href="global.html#codesAreEquals">codesAreEquals</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#searchClassesCodes">searchClassesCodes</a></li><li><a href="global.html#sendDiscordMessage">sendDiscordMessage</a></li><li><a href="global.html#updateClassesCodes">updateClassesCodes</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>utils.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const axios = require("axios");
+const { setCurrentCodes, getCurrentCodes, initDatabase, getSettingByKey } = require("./db.js");
+require("dotenv").config();
+
+const axiosPortail = axios.create({
+  baseURL: "https://portail.henallux.be/api/",
+  timeout: 15000,
+  headers: {
+    Authorization: "Bearer " + process.env.JWT_PORTAIL,
+    "User-Agent":
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
+  },
+});
+
+/**
+ * Compare les codes API passés en argument avec les codes API présents en mémoire
+ * @method
+ * @param {Object} newCodes - Nouveaux codes API fetchés
+ * @returns {boolean} Les codes API ont changé, ou non
+ * @category Utils
+ */
+const codesAreEquals = (newCodes) => {
+  const currentCodes = getCurrentCodes();
+
+  const newCodesKeys = Object.keys(newCodes);
+  const currentCodesKeys = Object.keys(currentCodes);
+  const newCodesValues = Object.values(newCodes);
+  const currentCodesValues = Object.values(currentCodes);
+
+  return (
+    newCodesKeys.length === currentCodesKeys.length &amp;&amp;
+    currentCodesValues.every((code) => newCodesValues.includes(code))
+  );
+};
+
+/**
+ * Cherche les codes correspondants aux groupes
+ * @method
+ * @returns {Promise} Promise contenant les codes
+ * @category Utils
+ */
+const searchClassesCodes = () => {
+  return new Promise(async (resolve, reject) => {
+    let jsonData = {};
+    try {
+      const blocsID = await axiosPortail.get(
+        "classes/orientation_and_implantation/6/1",
+        {
+          transformResponse: [
+            function (data) {
+              let jsonData = JSON.parse(data);
+              return jsonData.data.map((item) => item.id);
+            },
+          ],
+        }
+      );
+
+      for (const bloc of blocsID.data) {
+        const classesID = await axiosPortail.get(
+          `classes/classe_and_orientation_and_implantation/${bloc}/6/1`,
+          {
+            transformResponse: [
+              function (data) {
+                let jsonData = JSON.parse(data);
+                return jsonData.data.filter((grp) => grp.classe !== null);
+              },
+            ],
+          }
+        );
+        for (const classe of classesID.data) {
+          const formatedID = classe.annee.charAt(0) + classe.classe;
+          jsonData[formatedID] = classe.id;
+        }
+      }
+      resolve(jsonData);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const newsearchClassesCodes = () => {
+  return new Promise(async (resolve, reject) => {
+    let jsonData = {};
+    try {
+      const blocsID = await axiosPortail.get(
+        "classes/orientation_and_implantation/6/1",
+        {
+          transformResponse: [
+            function (data) {
+              let jsonData = JSON.parse(data);
+              return jsonData.data.map((item) => item.id);
+            },
+          ],
+        }
+      );
+
+      for (const bloc of blocsID.data) {
+        const classesID = await axiosPortail.get(
+          `classes/classe_and_orientation_and_implantation/${bloc}/6/1`,
+          {
+            transformResponse: [
+              function (data) {
+                let jsonData = JSON.parse(data);
+                return jsonData.data.filter((grp) => grp.classe !== null);
+              },
+            ],
+          }
+        );
+        for (const classe of classesID.data) {
+          const formatedID = classe.annee.charAt(0) + classe.classe;
+          jsonData[formatedID] = classe.id;
+        }
+      }
+      resolve(jsonData);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+/**
+ * Contenu du message Discord
+ * @typedef {Object} ContenuDiscord
+ * @property {string} title
+ * @property {string} text
+ * @category Utils
+ */
+/**
+ * Envoie un webhook Discord
+ * @method
+ * @param {ContenuDiscord} contenuDiscord - Contenu du message à envoyer ({@link ContenuDiscord})
+ * @param {boolean} [isError=true] - Le message a envoyé est un message d'erreur 
+ * @example
+ *  sendDiscordMessage({ title: "Titre du webhook", text: "Text du webhook"})
+ * @returns {void}
+ * @category Utils
+ */
+const sendDiscordMessage = ({ title, text }, isError = true) => {
+  const discordMessage = {
+    content: isError ? `&lt;@${process.env.DISCORD_ID}>` : "",
+    avatar_url: "https://portail.henallux.be/favicon-96x96.png",
+    username: "IESN Scheduler",
+    embeds: [
+      {
+        timestamp: new Date(),
+        color: isError ? getSettingByKey("RED_COLOR") : getSettingByKey("GREEN_COLOR"),
+        fields: [
+          {
+            name: title,
+            value: text,
+          },
+        ],
+      },
+    ],
+  };
+
+  axios.post(process.env.DISCORD_WEBHOOK_URL, JSON.stringify(discordMessage), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+/**
+ * Mets à jour les codes correspondants aux groupes
+ * @method
+ * @param {boolean} [onLoad=false] 
+ * @returns {void}
+ * @category Utils
+ */
+const updateClassesCodes = (onLoad = false) => {
+  searchClassesCodes()
+    .then((result) => {
+      if (!codesAreEquals(result)) {
+        setCurrentCodes(result);
+        sendDiscordMessage(
+          {
+            title: "Information",
+            text: onLoad ? "Codes mis en cache" : "Code mis à jour",
+          },
+          false
+        );
+      }
+    })
+    .catch((error) => {
+      sendDiscordMessage(
+        {
+          title: "Erreur cache des codes-cours",
+          text: `**Détails** : ${error.message}`,
+        },
+        false
+      );
+    });
+};
+
+/**
+ * Charge les informations pour la première fois
+ * @method
+ * @returns {void}
+ * @category Utils
+ */
+const load = () => {
+    initDatabase();
+    updateClassesCodes(true);
+};
+
+module.exports = {
+  sendDiscordMessage,
+  load,
+  searchClassesCodes,
+  newsearchClassesCodes
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

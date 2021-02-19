@@ -1,0 +1,32 @@
+{
+    "source": {
+        "includePattern": ".+\\.js(doc|x)?$",
+        "include": ["."],
+        "exclude": ["node_modules", "docs"]
+    },
+    "opts": {
+        "template": "node_modules/better-docs",
+        "destination": "docs/"
+    },
+    "tags": {
+        "allowUnknownTags": ["category"]
+    },
+    "plugins": [
+        "node_modules/better-docs/category"
+    ],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "search": true,
+        "better-docs": {
+            "name": "Documentation IESN Scheduler",
+            "title": "Documentation IESN Scheduler",
+            "navLinks": [
+                {
+                    "label": "Github",
+                    "href": "https://github.com/IESN-IG/IESN-Scheduler"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation IESN Scheduler db.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Documentation IESN Scheduler</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/IESN-IG/IESN-Scheduler"
+                        >
+                            Github
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Database</h2><h3>Global</h3><ul><li><a href="global.html#getBlocsBySection">getBlocsBySection</a></li><li><a href="global.html#getClassesBySectionAndBloc">getClassesBySectionAndBloc</a></li><li><a href="global.html#getCurrentCodes">getCurrentCodes</a></li><li><a href="global.html#getGroupsBySectionAndBloc">getGroupsBySectionAndBloc</a></li><li><a href="global.html#getSectionDataBySection">getSectionDataBySection</a></li><li><a href="global.html#getSectionDataBySectionAndBloc">getSectionDataBySectionAndBloc</a></li><li><a href="global.html#getSections">getSections</a></li><li><a href="global.html#getSettingByKey">getSettingByKey</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getValidBlocsAndGroupsBySection">getValidBlocsAndGroupsBySection</a></li><li><a href="global.html#initDatabase">initDatabase</a></li><li><a href="global.html#setCurrentCodes">setCurrentCodes</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Global</h3><ul><li><a href="global.html#codesAreEquals">codesAreEquals</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#searchClassesCodes">searchClassesCodes</a></li><li><a href="global.html#sendDiscordMessage">sendDiscordMessage</a></li><li><a href="global.html#updateClassesCodes">updateClassesCodes</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>db.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const db = require('quick.db');
+const defaultSettings = require("./default-settings.json");
+const iesnData = require("./IESN.json");
+require("dotenv").config();
+
+/**
+ * Retourne les settings
+ * @method
+ * @returns {Object}
+ * @category Database
+ */
+const getSettings = () => db.get(`${process.env.DB_PREFIX}.settings`) || {};
+
+/**
+ * Initialise la BDD au démarrage
+ * @method
+ * @returns {void}
+ * @category Database
+ */
+const initDatabase = () => {
+    const currentSettings = getSettings();
+    const defaultSettingsKeys = Object.keys(defaultSettings);
+    defaultSettingsKeys.forEach(settingsKey => {
+        if(!currentSettings[settingsKey]) 
+            db.set(`${process.env.DB_PREFIX}.settings.${settingsKey}`, defaultSettings[settingsKey]);
+    })
+    db.set(`${process.env.DB_PREFIX}.globalSectionsData`, iesnData);
+}
+
+/**
+ * Retourne les informations complètes de la section donnée
+ * @method
+ * @param {string} [section=IG] 
+ * @returns {Object}
+ * @category Database
+ */
+const getSectionDataBySection = (section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}`);
+
+/**
+ * Retourne les informations du bloc et de la section donnés
+ * @method
+ * @param {string|number} bloc 
+ * @param {string} [section=IG] 
+ * @returns {Object}
+ * @category Database
+ */
+const getSectionDataBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}.${bloc}`);
+
+/**
+ * Retourne les groupes disponibles du bloc et de la section donnés
+ * @method
+ * @param {string|number} bloc 
+ * @param {string} [section=IG] 
+ * @returns {string[]}
+ * @category Database
+ */
+const getGroupsBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}.${bloc}.groups`);
+
+/**
+ * Retourne les cours disponibles du bloc et de la section donnés
+ * @method
+ * @param {string|number} bloc 
+ * @param {string} [section=IG] 
+ * @returns {Object[]}
+ * @category Database
+ */
+const getClassesBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}.${bloc}.classes`);
+
+/**
+ * Retourne les sections disponibles
+ * @method
+ * @returns {string[]} Sections disponibles
+ * @category Database
+ */
+const getSections = () => Object.keys(db.get(`${process.env.DB_PREFIX}.globalSectionsData`));
+
+/**
+ * Retournes les blocs disponibles pour une section donnée 
+ * @method
+ * @param {string} [section=IG] 
+ * @returns {string[]}
+ * @category Database
+ */
+const getBlocsBySection = (section = "IG") => Object.keys(db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}`));
+
+/**
+ * Retourne tous les combos blocs + groupes valides pour la section donnée
+ * @method
+ * @param {string} [section=IG] 
+ * @returns {string[]}
+ * @category Database
+ */
+const getValidBlocsAndGroupsBySection = (section = "IG") => {
+    const blocs = getBlocsBySection(section);
+    return blocs.reduce((accumulator, blocNumber) => {
+        accumulator.push(...getGroupsBySectionAndBloc(blocNumber, section).map(grpLetter => blocNumber + grpLetter))
+        return accumulator;
+    }, [])
+}
+
+/**
+ * Retourne le paramètre lié à la clé donnée
+ * @method
+ * @param {string} key 
+ * @returns {string|number}
+ * @category Database
+ */
+const getSettingByKey = (key) => db.get(`${process.env.DB_PREFIX}.settings.${key}`);
+
+/**
+ * Retourne les codes API enregistrés
+ * @method
+ * @returns {Object}
+ * @category Database
+ */
+const getCurrentCodes = () => db.get(`${process.env.DB_PREFIX}.codes`) || {};
+
+/**
+ * Mets à jour les codes API enregistrés
+ * @method
+ * @param {Object} codes 
+ * @returns {void}
+ * @category Database
+ */
+const setCurrentCodes = (codes) => db.set(`${process.env.DB_PREFIX}.codes`, codes);
+
+module.exports = { setCurrentCodes, getCurrentCodes, initDatabase, getSettings, getSettingByKey, getValidBlocsAndGroupsBySection }</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>
