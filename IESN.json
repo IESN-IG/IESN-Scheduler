@@ -1,0 +1,513 @@
+{
+    "IG": {
+        "1": {
+            "groups": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+            ],
+            "classes": [
+                {
+                    "section": "IG",
+                    "id": "121",
+                    "displayName": "Principes de programmation",
+                    "completeName": "IG121 - Principes de programmation",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "122",
+                    "displayName": "Langage de programmation : Bases",
+                    "completeName": "IG122 - Langage de programmation : Bases",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "123",
+                    "displayName": "Description des ordinateurs",
+                    "completeName": "IG123 - Description des ordinateurs",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NARO1",
+                            "displayName": "Architecture des ordinateurs",
+                            "completeName": "NARO1 - Architecture des ordinateurs"
+                        },
+                        {
+                            "id": "NEEO1",
+                            "displayName": "Expression écrite et orale",
+                            "completeName": "NEEO1 - Expression écrite et orale"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "124",
+                    "displayName": "Outils mathématiques pour l'informatique",
+                    "completeName": "IG124 - Outils mathématiques pour l'informatique",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "125",
+                    "displayName": "Introduction à la gestion d'entreprise",
+                    "completeName": "IG125 - Introduction à la gestion d'entreprise",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NOEN1",
+                            "displayName": "Organisation des entreprises",
+                            "completeName": "NOEN1 - Organisation des entreprises"
+                        },
+                        {
+                            "id": "NECE1",
+                            "displayName": "Economie de l'entreprise 1",
+                            "completeName": "NECE1 - Economie de l'entreprise 1"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "126",
+                    "displayName": "Langues étrangères : niveau 1",
+                    "completeName": "IG126 - Langues étrangères : niveau 1",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "127",
+                    "displayName": "Langage de programmation avancé",
+                    "completeName": "IG127 - Langage de programmation avancé",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "128",
+                    "displayName": "Organisation et exploitation des données",
+                    "completeName": "IG128 - Organisation et exploitation des données",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "129",
+                    "displayName": "Conception orientée objet",
+                    "completeName": "IG129 - Conception orientée objet",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NPPO1",
+                            "displayName": "Principes de programmation orientée objet",
+                            "completeName": "NPPO1 - Principes de programmation orientée objet"
+                        },
+                        {
+                            "id": "NLPOO",
+                            "displayName": "Langage de programmation orienté objet",
+                            "completeName": "NLPOO - Langage de programmation orienté objet"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "130",
+                    "displayName": "Introduction au Web",
+                    "completeName": "IG130 - Introduction au Web",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "131",
+                    "displayName": "Modélisation et traitement des données",
+                    "completeName": "IG131 - Modélisation et traitement des données",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "132",
+                    "displayName": "Economie et management",
+                    "completeName": "IG132 - Economie et management",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NMAN1",
+                            "displayName": "Management",
+                            "completeName": "NMAN1 - Management"
+                        },
+                        {
+                            "id": "NECE2",
+                            "displayName": "Economie de l'entreprise 2",
+                            "completeName": "NECE2 - Economie de l'entreprise 2"
+                        }
+                    ],
+                    "aliases": null
+                }
+            ]
+        },
+        "2": {
+            "groups": [
+                "A",
+                "B"
+            ],
+            "classes": [
+                {
+                    "section": "IG",
+                    "id": "221",
+                    "displayName": "Analyse métier et conception de bases de données",
+                    "completeName": "IG221 - Analyse métier et conception de bases de données",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NAPM2",
+                            "displayName": "Analyse du processus métier",
+                            "completeName": "NAPM2 - Analyse du processus métier"
+                        },
+                        {
+                            "id": "NCBD2",
+                            "displayName": "Conception de bases de données",
+                            "completeName": "NCBD2 - Conception de bases de données"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "222",
+                    "displayName": "Programmation orientée objet",
+                    "completeName": "IG222 - Programmation orientée objet",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "223",
+                    "displayName": "Technologies Web",
+                    "completeName": "IG223 - Technologies Web",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "224",
+                    "displayName": "Systèmes d'exploitation",
+                    "completeName": "IG224 - Systèmes d'exploitation",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "225",
+                    "displayName": "Séminaires technologiques",
+                    "completeName": "IG225 - Séminaires technologiques",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "226",
+                    "displayName": "Modélisation de l'événementiel",
+                    "completeName": "IG226 - Modélisation de l'événementiel",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "227",
+                    "displayName": "Aide à la gestion d'entreprise",
+                    "completeName": "IG227 - Aide à la gestion d'entreprise",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "228",
+                    "displayName": "Communication",
+                    "completeName": "IG228 - Communication",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NTCP2",
+                            "displayName": "Techniques de la communication professionnelle",
+                            "completeName": "NTCP2 - Techniques de la communication professionnelle"
+                        },
+                        {
+                            "id": "NLAE2",
+                            "displayName": "Langues étrangères : niveau 2",
+                            "completeName": "NLAE2 - Langues étrangères : niveau 2"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "229",
+                    "displayName": "Analyse et gestion de projets",
+                    "completeName": "IG229 - Analyse et gestion de projets",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NAOO2",
+                            "displayName": "Analyse orientée objet",
+                            "completeName": "NAOO2 - Analyse orientée objet"
+                        },
+                        {
+                            "id": "NGPR2",
+                            "displayName": "Gestion de projets",
+                            "completeName": "NGPR2 - Gestion de projets"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "230",
+                    "displayName": "Projet informatique intégré",
+                    "completeName": "IG230 - Projet informatique intégré",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NPOOA",
+                            "displayName": "Programmation orientée objet avancée",
+                            "completeName": "NPOOA - Programmation orientée objet avancée"
+                        },
+                        {
+                            "id": "NLEBD",
+                            "displayName": "Langage d'exploitation de bases de données",
+                            "completeName": "NLEBD - Langage d'exploitation de bases de données"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "231",
+                    "displayName": "Réseaux",
+                    "completeName": "IG231 - Réseaux",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "232",
+                    "displayName": "Introduction à la Data Intelligence",
+                    "completeName": "IG232 - Introduction à la Data Intelligence",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NPNDI",
+                            "displayName": "De la programmation numérique à la Data Intelligence",
+                            "completeName": "NPNDI - De la programmation numérique à la Data Intelligence"
+                        },
+                        {
+                            "id": "NOSDS",
+                            "displayName": "Outils statistiques pour les Data Sciences",
+                            "completeName": "NOSDS - Outils statistiques pour les Data Sciences"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "233",
+                    "displayName": "Culture générale",
+                    "completeName": "IG233 - Culture générale",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NIDI2",
+                            "displayName": "Initiation au droit informatique",
+                            "completeName": "NIDI2 - Initiation au droit informatique"
+                        },
+                        {
+                            "id": "NETD2",
+                            "displayName": "Ethique et déontologie",
+                            "completeName": "NETD2 - Ethique et déontologie"
+                        }
+                    ],
+                    "aliases": null
+                }
+            ]
+        },
+        "3": {
+            "groups": [
+                "A",
+                "B"
+            ],
+            "classes": [
+                {
+                    "section": "IG",
+                    "id": "321",
+                    "displayName": "Business Intelligence and Data Analytics",
+                    "completeName": "IG321 - Business Intelligence and Data Analytics",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "322",
+                    "displayName": "Développements Web",
+                    "completeName": "IG322 - Développements Web",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "323",
+                    "displayName": "Conception de bases de données avancées",
+                    "completeName": "IG323 - Conception de bases de données avancées",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "324",
+                    "displayName": "Aide à la décision managériale",
+                    "completeName": "IG324 - Aide à la décision managériale",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "325",
+                    "displayName": "Langues étrangères : niveau 3",
+                    "completeName": "IG325 - Langues étrangères : niveau 3",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "334",
+                    "displayName": "Activité d'intégration professionnelle et travail de fin d'études",
+                    "completeName": "IG334 - Activité d'intégration professionnelle et travail de fin d'études",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NAIP3",
+                            "displayName": "Activité d'intégration professionnelle",
+                            "completeName": "NAIP3 - Activité d'intégration professionnelle"
+                        },
+                        {
+                            "id": "NTFR3",
+                            "displayName": "Travail de fin d'études : rapport écrit",
+                            "completeName": "NTFR3 - Travail de fin d'études : rapport écrit"
+                        },
+                        {
+                            "id": "NTFD3",
+                            "displayName": "Travail de fin d'études : défense",
+                            "completeName": "NTFD3 - Travail de fin d'études : défense"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "327",
+                    "displayName": "Programmation et nouvelles technologies",
+                    "completeName": "IG327 - Programmation et nouvelles technologies",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NDM03",
+                            "displayName": "Développement mobile",
+                            "completeName": "NDM03 - Développement mobile"
+                        },
+                        {
+                            "id": "NDCW3",
+                            "displayName": "Développement de client Web avancé",
+                            "completeName": "NDCW3 - Développement de client Web avancé"
+                        },
+                        {
+                            "id": "NTBC3",
+                            "displayName": "Technologies back-end et Cloud",
+                            "completeName": "NTBC3 - Technologies back-end et Cloud"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "328",
+                    "displayName": "Développement avancé d'application Web",
+                    "completeName": "IG328 - Développement avancé d'application Web",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "330",
+                    "displayName": "Intelligence artificielle : Machine Learning  et Data Mining",
+                    "completeName": "IG330 - Intelligence artificielle : Machine Learning  et Data Mining",
+                    "optional": false,
+                    "classes": [
+                        {
+                            "id": "NML03",
+                            "displayName": "Machine Learning",
+                            "completeName": "NML03 - Machine Learning"
+                        },
+                        {
+                            "id": "NPWF3",
+                            "displayName": "Programmation Web et programmation fonctionnelle",
+                            "completeName": "NPWF3 - Programmation Web et programmation fonctionnelle"
+                        },
+                        {
+                            "id": "NPCI3",
+                            "displayName": "Projet : création d'une intelligence artificielle",
+                            "completeName": "NPCI3 - Projet : création d'une intelligence artificielle"
+                        }
+                    ],
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "331",
+                    "displayName": "Big Data",
+                    "completeName": "IG331 - Big Data",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                },
+                {
+                    "section": "IG",
+                    "id": "332",
+                    "displayName": "Séminaires Data Science",
+                    "completeName": "IG332 - Séminaires Data Science",
+                    "optional": false,
+                    "classes": null,
+                    "aliases": null
+                }
+            ]
+        }
+    }
+}

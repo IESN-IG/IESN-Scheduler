@@ -1,0 +1,20 @@
+{
+  "name": "iesnschedulerrevamp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-docs": "jsdoc -c ./jsdoc.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
+    "quick.db": "^7.1.3"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.6"
+  }
+}
