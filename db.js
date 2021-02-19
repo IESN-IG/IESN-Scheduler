@@ -75,6 +75,30 @@ const getClassesBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.e
 const getSections = () => Object.keys(db.get(`${process.env.DB_PREFIX}.globalSectionsData`));
 
 /**
+ * Retournes les blocs disponibles pour une section donnée 
+ * @method
+ * @param {string} [section=IG] 
+ * @returns {string[]}
+ * @category Database
+ */
+const getBlocsBySection = (section = "IG") => Object.keys(db.get(`${process.env.DB_PREFIX}.globalSectionsData.${section}`));
+
+/**
+ * Retourne tous les combos blocs + groupes valides pour la section donnée
+ * @method
+ * @param {string} [section=IG] 
+ * @returns {string[]}
+ * @category Database
+ */
+const getValidBlocsAndGroupsBySection = (section = "IG") => {
+    const blocs = getBlocsBySection(section);
+    return blocs.reduce((accumulator, blocNumber) => {
+        accumulator.push(...getGroupsBySectionAndBloc(blocNumber, section).map(grpLetter => blocNumber + grpLetter))
+        return accumulator;
+    }, [])
+}
+
+/**
  * Retourne le paramètre lié à la clé donnée
  * @method
  * @param {string} key 
@@ -100,4 +124,4 @@ const getCurrentCodes = () => db.get(`${process.env.DB_PREFIX}.codes`) || {};
  */
 const setCurrentCodes = (codes) => db.set(`${process.env.DB_PREFIX}.codes`, codes);
 
-module.exports = { setCurrentCodes, getCurrentCodes, initDatabase, getSettings, getSettingByKey }
+module.exports = { setCurrentCodes, getCurrentCodes, initDatabase, getSettings, getSettingByKey, getValidBlocsAndGroupsBySection }
