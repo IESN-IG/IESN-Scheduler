@@ -6,7 +6,7 @@
     },
     "opts": {
         "template": "node_modules/better-docs",
-        "destination": "docs/",
+        "destination": "../docs/",
         "recurse": true,
         "verbose": true,
         "readme": "./JSDOC-README.md"
