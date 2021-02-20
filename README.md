@@ -28,7 +28,7 @@ Un script pour parse automatiquement les cours / UE ainsi que leurs noms sera mi
 
 ## Notes
 
-* Stock en local des blocs + A.A. + code dans le fichier `blocs.json`
+* Stock en local des blocs + A.A. + code dans le fichier `back/IESN.json`
     - Parse du site ([lien](https://services.henallux.be/paysage/public/cursus/infocursus/idCursus/6)) 
     - Script de parsing à venir
     
