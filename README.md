@@ -18,7 +18,7 @@ Un script pour parse automatiquement les cours / UE ainsi que leurs noms sera mi
 ## Technos utilisées
 
 - __Backend__ : fastify
-- __Frontend__ : React.js
+- __Frontend__ : Next.js
 
 ## TODO
 
