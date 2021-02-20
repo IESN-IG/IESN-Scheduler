@@ -4,6 +4,8 @@
  */
 
 const { getFormatedCourses } = require("./utils");
+const patternTitle = /Matière : ([a-zA-Z0-9-'ÉéèÈà_!:.\/ ()]*)/;
+const blocPattern = /\[(\d) IG [A-Z0-9]*]/;
 
 /**
  * Vérifie si l'étudiant fait parti d'un bloc donné en fonction de ses groupes
@@ -64,11 +66,49 @@ const getFollowedCourses = (coursesBloc1, coursesBloc2, coursesBloc3, isInBloc1,
         followedCourses = [...followedCourses, getFollowedCoursesByBloc(cCoursesBloc2, 2)];
     if(isInBloc3)
         followedCourses = [...followedCourses, getFollowedCoursesByBloc(cCoursesBloc3, 3)];
+
+    return followedCourses;
+}
+
+/**
+ * Détermine si le cours doit être ajouté dans le calendrier ou non
+ * @param {Object} course Cours actuel de la réponse API
+ * @param {string[]} followedCourses Cours suivis par l'étudiant
+ * @param {Set} commonCourses Cours communs déjà ajoutés dans l'horaire
+ * @param {Object} formatedCourses Cours applatis et formatés
+ * @param {Object} coursesLabels Labels de tous les cours
+ * @returns {boolean}
+ */
+const filterCalendar = (course, followedCourses, commonCourses, formatedCourses, coursesLabels) => {
+    const transformedString = `${course.start}/${course.end}/${course.location}/${course.title}`; // On crée une chaîne unique
+
+    const isCoreCourse = commonCourses.has(transformedString); // On regarde si notre Set a déjà cette chaine (=> cours qui a déjà été mis dans le calendrier)
+
+    if(isCoreCourse) return false; // Si le cours est déjà présent on ne va pas plus loin -> on ne l'ajoute pas
+
+    commonCourses.add(transformedString);
+
+    const isCourse = patternTitle.test(course.details) && coursesLabels.some(lbl => lbl === course.details.match(patternTitle)[1].replace(" (ex)", "").replace(" (th)", "")); // Si les détails correspondent au pattern (Matière : xxxx) et que le titre est dans tous les labels connus
+    let addThisCourse = !isCourse; // Si c'est un cours connu alors on ne l'ajoute pas de suite (il peut ne pas être voulu par l'étudiant)
+
+    if(isCourse){
+        const label = course.details.match(patternTitle)[1].replace(" (ex)", "").replace(" (th)", "");
+        const bloc = parseInt(course.text.match(blocPattern)[1]);
+        const foundCourse = formatedCourses[bloc].find(classe => classe.displayName === label || classe.aliases?.includes(label));
+
+        // Si on ne le trouve pas -> on l'ajoute par défaut pour ne pas pénaliser un étudiant et qu'il loupe son cours
+        // Si on le trouve -> on vérifie que l'étudiant le suit
+        addThisCourse = !foundCourse || followedCourses.some(c => c === foundCourse.id); 
+    }
+
+    return addThisCourse && !isCoreCourse; // On check si le cours doit être ajouté et qu'il n'a pas déjà été ajouté
 }
 
 module.exports = {
     isBlocAffiliate,
     determineBlocs,
-    getFollowedCourses
+    getFollowedCoursesByBloc,
+    getFollowedCourses,
+    filterCalendar
   };
   

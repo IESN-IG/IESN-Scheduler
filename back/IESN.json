@@ -37,12 +37,14 @@
                         {
                             "id": "NARO1",
                             "displayName": "Architecture des ordinateurs",
-                            "completeName": "NARO1 - Architecture des ordinateurs"
+                            "completeName": "NARO1 - Architecture des ordinateurs",
+                            "aliases": null
                         },
                         {
                             "id": "NEEO1",
                             "displayName": "Expression écrite et orale",
-                            "completeName": "NEEO1 - Expression écrite et orale"
+                            "completeName": "NEEO1 - Expression écrite et orale",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -66,12 +68,14 @@
                         {
                             "id": "NOEN1",
                             "displayName": "Organisation des entreprises",
-                            "completeName": "NOEN1 - Organisation des entreprises"
+                            "completeName": "NOEN1 - Organisation des entreprises",
+                            "aliases": null
                         },
                         {
                             "id": "NECE1",
                             "displayName": "Economie de l'entreprise 1",
-                            "completeName": "NECE1 - Economie de l'entreprise 1"
+                            "completeName": "NECE1 - Economie de l'entreprise 1",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -83,7 +87,7 @@
                     "completeName": "IG126 - Langues étrangères : niveau 1",
                     "optional": false,
                     "classes": null,
-                    "aliases": null
+                    "aliases": ["Anglais", "Anglais renforcement"]
                 },
                 {
                     "section": "IG",
@@ -113,12 +117,14 @@
                         {
                             "id": "NPPO1",
                             "displayName": "Principes de programmation orientée objet",
-                            "completeName": "NPPO1 - Principes de programmation orientée objet"
+                            "completeName": "NPPO1 - Principes de programmation orientée objet",
+                            "aliases": null
                         },
                         {
                             "id": "NLPOO",
                             "displayName": "Langage de programmation orienté objet",
-                            "completeName": "NLPOO - Langage de programmation orienté objet"
+                            "completeName": "NLPOO - Langage de programmation orienté objet",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -151,12 +157,14 @@
                         {
                             "id": "NMAN1",
                             "displayName": "Management",
-                            "completeName": "NMAN1 - Management"
+                            "completeName": "NMAN1 - Management",
+                            "aliases": null
                         },
                         {
                             "id": "NECE2",
                             "displayName": "Economie de l'entreprise 2",
-                            "completeName": "NECE2 - Economie de l'entreprise 2"
+                            "completeName": "NECE2 - Economie de l'entreprise 2",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -179,12 +187,14 @@
                         {
                             "id": "NAPM2",
                             "displayName": "Analyse du processus métier",
-                            "completeName": "NAPM2 - Analyse du processus métier"
+                            "completeName": "NAPM2 - Analyse du processus métier",
+                            "aliases": null
                         },
                         {
                             "id": "NCBD2",
                             "displayName": "Conception de bases de données",
-                            "completeName": "NCBD2 - Conception de bases de données"
+                            "completeName": "NCBD2 - Conception de bases de données",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -196,7 +206,7 @@
                     "completeName": "IG222 - Programmation orientée objet",
                     "optional": false,
                     "classes": null,
-                    "aliases": null
+                    "aliases": ["Technologies Web / Programmation orientée objet"]
                 },
                 {
                     "section": "IG",
@@ -205,7 +215,7 @@
                     "completeName": "IG223 - Technologies Web",
                     "optional": false,
                     "classes": null,
-                    "aliases": null
+                    "aliases": ["Technologies Web / Programmation orientée objet"]
                 },
                 {
                     "section": "IG",
@@ -253,12 +263,14 @@
                         {
                             "id": "NTCP2",
                             "displayName": "Techniques de la communication professionnelle",
-                            "completeName": "NTCP2 - Techniques de la communication professionnelle"
+                            "completeName": "NTCP2 - Techniques de la communication professionnelle",
+                            "aliases": null
                         },
                         {
                             "id": "NLAE2",
                             "displayName": "Langues étrangères : niveau 2",
-                            "completeName": "NLAE2 - Langues étrangères : niveau 2"
+                            "completeName": "NLAE2 - Langues étrangères : niveau 2",
+                            "aliases": ["Allemand", "Anglais renforcement", "Anglais", "Néerlandais // 2IG 2TI 2IR / Angl.renf.2AU", "Ndls / Allemand/Angl.renforc."]
                         }
                     ],
                     "aliases": null
@@ -273,12 +285,14 @@
                         {
                             "id": "NAOO2",
                             "displayName": "Analyse orientée objet",
-                            "completeName": "NAOO2 - Analyse orientée objet"
+                            "completeName": "NAOO2 - Analyse orientée objet",
+                            "aliases": null
                         },
                         {
                             "id": "NGPR2",
                             "displayName": "Gestion de projets",
-                            "completeName": "NGPR2 - Gestion de projets"
+                            "completeName": "NGPR2 - Gestion de projets",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -293,12 +307,14 @@
                         {
                             "id": "NPOOA",
                             "displayName": "Programmation orientée objet avancée",
-                            "completeName": "NPOOA - Programmation orientée objet avancée"
+                            "completeName": "NPOOA - Programmation orientée objet avancée",
+                            "aliases": null
                         },
                         {
                             "id": "NLEBD",
                             "displayName": "Langage d'exploitation de bases de données",
-                            "completeName": "NLEBD - Langage d'exploitation de bases de données"
+                            "completeName": "NLEBD - Langage d'exploitation de bases de données",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -322,12 +338,14 @@
                         {
                             "id": "NPNDI",
                             "displayName": "De la programmation numérique à la Data Intelligence",
-                            "completeName": "NPNDI - De la programmation numérique à la Data Intelligence"
+                            "completeName": "NPNDI - De la programmation numérique à la Data Intelligence",
+                            "aliases": null
                         },
                         {
                             "id": "NOSDS",
                             "displayName": "Outils statistiques pour les Data Sciences",
-                            "completeName": "NOSDS - Outils statistiques pour les Data Sciences"
+                            "completeName": "NOSDS - Outils statistiques pour les Data Sciences",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -342,12 +360,14 @@
                         {
                             "id": "NIDI2",
                             "displayName": "Initiation au droit informatique",
-                            "completeName": "NIDI2 - Initiation au droit informatique"
+                            "completeName": "NIDI2 - Initiation au droit informatique",
+                            "aliases": null
                         },
                         {
                             "id": "NETD2",
                             "displayName": "Ethique et déontologie",
-                            "completeName": "NETD2 - Ethique et déontologie"
+                            "completeName": "NETD2 - Ethique et déontologie",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -403,7 +423,7 @@
                     "completeName": "IG325 - Langues étrangères : niveau 3",
                     "optional": false,
                     "classes": null,
-                    "aliases": null
+                    "aliases": ["Anglais / Anglais renforcement", "Néerlandais / Allemand"]
                 },
                 {
                     "section": "IG",
@@ -415,17 +435,20 @@
                         {
                             "id": "NAIP3",
                             "displayName": "Activité d'intégration professionnelle",
-                            "completeName": "NAIP3 - Activité d'intégration professionnelle"
+                            "completeName": "NAIP3 - Activité d'intégration professionnelle",
+                            "aliases": null
                         },
                         {
                             "id": "NTFR3",
                             "displayName": "Travail de fin d'études : rapport écrit",
-                            "completeName": "NTFR3 - Travail de fin d'études : rapport écrit"
+                            "completeName": "NTFR3 - Travail de fin d'études : rapport écrit",
+                            "aliases": null
                         },
                         {
                             "id": "NTFD3",
                             "displayName": "Travail de fin d'études : défense",
-                            "completeName": "NTFD3 - Travail de fin d'études : défense"
+                            "completeName": "NTFD3 - Travail de fin d'études : défense",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -440,17 +463,20 @@
                         {
                             "id": "NDM03",
                             "displayName": "Développement mobile",
-                            "completeName": "NDM03 - Développement mobile"
+                            "completeName": "NDM03 - Développement mobile",
+                            "aliases": null
                         },
                         {
                             "id": "NDCW3",
                             "displayName": "Développement de client Web avancé",
-                            "completeName": "NDCW3 - Développement de client Web avancé"
+                            "completeName": "NDCW3 - Développement de client Web avancé",
+                            "aliases": null
                         },
                         {
                             "id": "NTBC3",
                             "displayName": "Technologies back-end et Cloud",
-                            "completeName": "NTBC3 - Technologies back-end et Cloud"
+                            "completeName": "NTBC3 - Technologies back-end et Cloud",
+                            "aliases": null
                         }
                     ],
                     "aliases": null
@@ -474,17 +500,20 @@
                         {
                             "id": "NML03",
                             "displayName": "Machine Learning",
-                            "completeName": "NML03 - Machine Learning"
+                            "completeName": "NML03 - Machine Learning",
+                            "aliases": null
                         },
                         {
                             "id": "NPWF3",
                             "displayName": "Programmation Web et programmation fonctionnelle",
-                            "completeName": "NPWF3 - Programmation Web et programmation fonctionnelle"
+                            "completeName": "NPWF3 - Programmation Web et programmation fonctionnelle",
+                            "aliases": null
                         },
                         {
                             "id": "NPCI3",
                             "displayName": "Projet : création d'une intelligence artificielle",
-                            "completeName": "NPCI3 - Projet : création d'une intelligence artificielle"
+                            "completeName": "NPCI3 - Projet : création d'une intelligence artificielle",
+                            "aliases": null
                         }
                     ],
                     "aliases": null

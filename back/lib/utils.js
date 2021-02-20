@@ -125,8 +125,21 @@ const getFormatedCourses = (section = "IG") => {
   return formatedCourses;
 }
 
+/**
+ * Retourne tous les labels (avec les alias) présents dans la database
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
+ * @returns {string[]}
+ */
+const getAllCoursesLabels = (section = "IG") => {
+  const formatedCourses = getFormatedCourses(section);
+  const arrayFormatedCourses = [...formatedCourses[1], ...formatedCourses[2], ...formatedCourses[3]]
+  return [...arrayFormatedCourses.map(course => course.displayName), ...arrayFormatedCourses.filter(course => course.aliases).reduce((acc, curr) => [...acc, ...curr.aliases], [])]
+}
+
+
 module.exports = {
   sendDiscordMessage,
   objectsAreEquals,
-  getFormatedCourses
+  getFormatedCourses,
+  getAllCoursesLabels
 };
