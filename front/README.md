@@ -1,6 +1,6 @@
 <h1 align="center">Front-end IESN Scheduler 🖼️</h1>
 
-### 📆 [Site](https://iesn.thibaultclaude.be) - 📝 [Documentation](https://iesn-ig.github.io/IESN-Scheduler/docs/) - 🏠 [Site Perso](https://thibaultclaude.be)
+### 📆 [Site](https://iesn.thibaultclaude.be) - 📝 [Documentation](https://iesn-ig.github.io/IESN-Scheduler/) - 🏠 [Site Perso](https://thibaultclaude.be)
 
 ## Techno utilisée
 Next.js
