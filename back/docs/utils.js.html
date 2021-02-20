@@ -79,10 +79,6 @@
             id="sidebarNav"
         >
             
-                <div class="search-wrapper">
-                    <input id="search" type="text" placeholder="Search docs..." class="input">
-                </div>
-            
             <nav>
                 
                     <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-calendar.html">calendar</a></li><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div>
@@ -112,8 +108,8 @@ require("dotenv").config();
 
 /**
  * Compare 2 objets et retourne s'ils sont égaux ou non
- * @param {Object} object1
- * @param {Object} object2
+ * @param {Object} object1 Objet à comparer au deuxième objet
+ * @param {Object} object2 Objet à comparer au premier objet
  * @returns {boolean}
  */
 const objectsAreEquals = (object1, object2) => {
@@ -170,7 +166,7 @@ const sendDiscordMessage = ({ title, text }, isError = true) => {
 
 /**
  * Retourne les cours "applatis" et formatés de la section donnée
- * @param {string} [section=IG] 
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
  * @returns {Object}
  * @example
  *  getFormatedCourses("IG");
@@ -229,10 +225,23 @@ const getFormatedCourses = (section = "IG") => {
   return formatedCourses;
 }
 
+/**
+ * Retourne tous les labels (avec les alias) présents dans la database
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
+ * @returns {string[]}
+ */
+const getAllCoursesLabels = (section = "IG") => {
+  const formatedCourses = getFormatedCourses(section);
+  const arrayFormatedCourses = [...formatedCourses[1], ...formatedCourses[2], ...formatedCourses[3]]
+  return [...arrayFormatedCourses.map(course => course.displayName), ...arrayFormatedCourses.filter(course => course.aliases).reduce((acc, curr) => [...acc, ...curr.aliases], [])]
+}
+
+
 module.exports = {
   sendDiscordMessage,
   objectsAreEquals,
-  getFormatedCourses
+  getFormatedCourses,
+  getAllCoursesLabels
 };
 </code></pre>
         </article>
@@ -260,8 +269,6 @@ module.exports = {
 <script src="scripts/app.min.js"></script>
 <script>PR.prettyPrint();</script>
 <script src="scripts/linenumber.js"> </script>
-
-<script src="scripts/search.js"> </script>
 
 </body>
 </html>

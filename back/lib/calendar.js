@@ -26,8 +26,8 @@ const determineBlocs = (groups) => [isBlocAffiliate(groups, 1), isBlocAffiliate(
 
 /**
  * Retourne les cours suivis par l'étudiant selon le bloc donné et la liste des cours (par défaut tous les cours sont suivis)
- * @param {string[]|null} coursesFollowed 
- * @param {string|number} blocNumber 
+ * @param {string[]|null} coursesFollowed Cours sélectionnés par l'étudiant
+ * @param {string|number} blocNumber Numéro du bloc
  * @returns {string[]} Codes des cours suivis dans le bloc donné
  */
 const getFollowedCoursesByBloc = (coursesFollowed, blocNumber) => {
@@ -44,12 +44,12 @@ const getFollowedCoursesByBloc = (coursesFollowed, blocNumber) => {
 
 /**
  * Retourne tous les cours suivis par l'étudiant
- * @param {string[]|string|null} coursesBloc1
- * @param {string[]|string|null} coursesBloc2
- * @param {string[]|string|null} coursesBloc3
- * @param {boolean} isInBloc1 
- * @param {boolean} isInBloc2 
- * @param {boolean} isInBloc3 
+ * @param {string[]|string|null} coursesBloc1 Cours sélectionnés pour le bloc 1
+ * @param {string[]|string|null} coursesBloc2 Cours sélectionnés pour le bloc 2
+ * @param {string[]|string|null} coursesBloc3 Cours sélectionnés pour le bloc 3
+ * @param {boolean} isInBloc1 L'étudiant est-il dans le bloc 1 ?
+ * @param {boolean} isInBloc2 L'étudiant est-il dans le bloc 2 ?
+ * @param {boolean} isInBloc3 L'étudiant est-il dans le bloc 3 ?
  * @returns {string[]} Codes des cours suivis
  */
 const getFollowedCourses = (coursesBloc1, coursesBloc2, coursesBloc3, isInBloc1, isInBloc2, isInBloc3) => {

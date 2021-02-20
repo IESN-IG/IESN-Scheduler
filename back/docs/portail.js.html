@@ -79,10 +79,6 @@
             id="sidebarNav"
         >
             
-                <div class="search-wrapper">
-                    <input id="search" type="text" placeholder="Search docs..." class="input">
-                </div>
-            
             <nav>
                 
                     <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-calendar.html">calendar</a></li><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div>
@@ -169,7 +165,7 @@ const searchClassesCodes = () => {
 
 /**
  * Mets à jour les codes correspondants aux groupes
- * @param {boolean} [onLoad=false] 
+ * @param {boolean} [onLoad=false] Est-ce que c'est le premier chargement de l'application ?
  * @returns {void}
  */
 const updateClassesCodes = (onLoad = false) => {
@@ -231,8 +227,6 @@ module.exports = { updateClassesCodes, getAxiosPortailInstance };</code></pre>
 <script src="scripts/app.min.js"></script>
 <script>PR.prettyPrint();</script>
 <script src="scripts/linenumber.js"> </script>
-
-<script src="scripts/search.js"> </script>
 
 </body>
 </html>

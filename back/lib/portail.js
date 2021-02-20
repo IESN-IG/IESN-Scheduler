@@ -65,7 +65,7 @@ const searchClassesCodes = () => {
 
 /**
  * Mets à jour les codes correspondants aux groupes
- * @param {boolean} [onLoad=false] 
+ * @param {boolean} [onLoad=false] Est-ce que c'est le premier chargement de l'application ?
  * @returns {void}
  */
 const updateClassesCodes = (onLoad = false) => {

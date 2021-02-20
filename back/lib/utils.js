@@ -8,8 +8,8 @@ require("dotenv").config();
 
 /**
  * Compare 2 objets et retourne s'ils sont égaux ou non
- * @param {Object} object1
- * @param {Object} object2
+ * @param {Object} object1 Objet à comparer au deuxième objet
+ * @param {Object} object2 Objet à comparer au premier objet
  * @returns {boolean}
  */
 const objectsAreEquals = (object1, object2) => {
@@ -66,7 +66,7 @@ const sendDiscordMessage = ({ title, text }, isError = true) => {
 
 /**
  * Retourne les cours "applatis" et formatés de la section donnée
- * @param {string} [section=IG] 
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
  * @returns {Object}
  * @example
  *  getFormatedCourses("IG");

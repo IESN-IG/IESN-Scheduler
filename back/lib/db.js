@@ -54,8 +54,8 @@ const getSectionDataBySection = (section = "IG") => db.get(`${process.env.DB_PRE
 
 /**
  * Retourne les informations du bloc et de la section donnés
- * @param {string|number} bloc 
- * @param {string} [section=IG] 
+ * @param {string|number} bloc Numéro du bloc
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
  * @returns {Object}
  * @example
  *  getBlocDataBySectionAndBloc(1, "IG");
@@ -69,8 +69,8 @@ const getBlocDataBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.
 
 /**
  * Retourne les groupes disponibles du bloc et de la section donnés
- * @param {string|number} bloc 
- * @param {string} [section=IG] 
+ * @param {string|number} bloc Numéro du bloc
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
  * @returns {string[]}
  * @example
  *  getGroupsBySectionAndBloc(1, "IG"); // ["A", "B", "C", "D", "E"]
@@ -79,8 +79,8 @@ const getGroupsBySectionAndBloc = (bloc, section = "IG") => db.get(`${process.en
 
 /**
  * Retourne les cours disponibles du bloc et de la section donnés
- * @param {string|number} bloc 
- * @param {string} [section=IG] 
+ * @param {string|number} bloc Numéro du bloc
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
  * @returns {Object[]}
  * @example
  *  getClassesBySectionAndBloc(1, "IG"); 
@@ -118,7 +118,7 @@ const getSections = () => Object.keys(db.get(`${process.env.DB_PREFIX}.globalSec
 
 /**
  * Retournes les blocs disponibles pour une section donnée 
- * @param {string} [section=IG] 
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
  * @returns {string[]}
  * @example
  *  getBlocsBySection("IG"); // ["1", "2", "3"]
@@ -127,7 +127,7 @@ const getBlocsBySection = (section = "IG") => Object.keys(db.get(`${process.env.
 
 /**
  * Retourne tous les combos blocs + groupes valides pour la section donnée
- * @param {string} [section=IG] 
+ * @param {string} [section=IG] Section (ex: "IG", "MK")
  * @returns {string[]}
  * @example
  *  getValidBlocsAndGroupsBySection("IG"); // ["1A", "1B", ..., "2A", "2B", "3A", "3B"]
@@ -142,7 +142,7 @@ const getValidBlocsAndGroupsBySection = (section = "IG") => {
 
 /**
  * Retourne le paramètre lié à la clé donnée
- * @param {string} key 
+ * @param {string} key Clé du paramètre
  * @returns {string|number}
  */
 const getSettingByKey = (key) => db.get(`${process.env.DB_PREFIX}.settings.${key}`);
@@ -155,7 +155,7 @@ const getCurrentCodes = () => db.get(`${process.env.DB_PREFIX}.codes`) || {};
 
 /**
  * Mets à jour les codes API enregistrés
- * @param {Object} codes 
+ * @param {Object} codes Nouveaux codes reçus par l'API
  * @returns {void}
  */
 const setCurrentCodes = (codes) => db.set(`${process.env.DB_PREFIX}.codes`, codes);
@@ -171,5 +171,5 @@ module.exports = {
     getBlocDataBySectionAndBloc,
     getClassesBySectionAndBloc,
     getSections,
-    getGroupsBySectionAndBloc 
+    getGroupsBySectionAndBloc
 }
