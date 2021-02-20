@@ -85,7 +85,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Database</h2><h3>Global</h3><ul><li><a href="global.html#getBlocsBySection">getBlocsBySection</a></li><li><a href="global.html#getClassesBySectionAndBloc">getClassesBySectionAndBloc</a></li><li><a href="global.html#getCurrentCodes">getCurrentCodes</a></li><li><a href="global.html#getGroupsBySectionAndBloc">getGroupsBySectionAndBloc</a></li><li><a href="global.html#getSectionDataBySection">getSectionDataBySection</a></li><li><a href="global.html#getSectionDataBySectionAndBloc">getSectionDataBySectionAndBloc</a></li><li><a href="global.html#getSections">getSections</a></li><li><a href="global.html#getSettingByKey">getSettingByKey</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getValidBlocsAndGroupsBySection">getValidBlocsAndGroupsBySection</a></li><li><a href="global.html#initDatabase">initDatabase</a></li><li><a href="global.html#setCurrentCodes">setCurrentCodes</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Global</h3><ul><li><a href="global.html#codesAreEquals">codesAreEquals</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#searchClassesCodes">searchClassesCodes</a></li><li><a href="global.html#sendDiscordMessage">sendDiscordMessage</a></li><li><a href="global.html#updateClassesCodes">updateClassesCodes</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div><div class="category"><h2>Database</h2><h3>Global</h3><ul><li><a href="global.html#getBlocsBySection">getBlocsBySection</a></li><li><a href="global.html#getClassesBySectionAndBloc">getClassesBySectionAndBloc</a></li><li><a href="global.html#getCurrentCodes">getCurrentCodes</a></li><li><a href="global.html#getGroupsBySectionAndBloc">getGroupsBySectionAndBloc</a></li><li><a href="global.html#getSectionDataBySection">getSectionDataBySection</a></li><li><a href="global.html#getSectionDataBySectionAndBloc">getSectionDataBySectionAndBloc</a></li><li><a href="global.html#getSections">getSections</a></li><li><a href="global.html#getSettingByKey">getSettingByKey</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getValidBlocsAndGroupsBySection">getValidBlocsAndGroupsBySection</a></li><li><a href="global.html#initDatabase">initDatabase</a></li><li><a href="global.html#setCurrentCodes">setCurrentCodes</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Global</h3><ul><li><a href="global.html#codesAreEquals">codesAreEquals</a></li><li><a href="global.html#getAxiosPortailInstance">getAxiosPortailInstance</a></li><li><a href="global.html#isBlocAffiliate">isBlocAffiliate</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#searchClassesCodes">searchClassesCodes</a></li><li><a href="global.html#sendDiscordMessage">sendDiscordMessage</a></li><li><a href="global.html#updateClassesCodes">updateClassesCodes</a></li></ul></div>
                 
             </nav>
         </div>
@@ -144,46 +144,6 @@ const codesAreEquals = (newCodes) => {
  * @category Utils
  */
 const searchClassesCodes = () => {
-  return new Promise(async (resolve, reject) => {
-    let jsonData = {};
-    try {
-      const blocsID = await axiosPortail.get(
-        "classes/orientation_and_implantation/6/1",
-        {
-          transformResponse: [
-            function (data) {
-              let jsonData = JSON.parse(data);
-              return jsonData.data.map((item) => item.id);
-            },
-          ],
-        }
-      );
-
-      for (const bloc of blocsID.data) {
-        const classesID = await axiosPortail.get(
-          `classes/classe_and_orientation_and_implantation/${bloc}/6/1`,
-          {
-            transformResponse: [
-              function (data) {
-                let jsonData = JSON.parse(data);
-                return jsonData.data.filter((grp) => grp.classe !== null);
-              },
-            ],
-          }
-        );
-        for (const classe of classesID.data) {
-          const formatedID = classe.annee.charAt(0) + classe.classe;
-          jsonData[formatedID] = classe.id;
-        }
-      }
-      resolve(jsonData);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
-
-const newsearchClassesCodes = () => {
   return new Promise(async (resolve, reject) => {
     let jsonData = {};
     try {
@@ -309,11 +269,29 @@ const load = () => {
     updateClassesCodes(true);
 };
 
+/**
+ * Retourne l'instance d'axios avec l'identification au portail
+ * @method
+ * @returns {Object}
+ * @category Utils
+ */
+const getAxiosPortailInstance = () => axiosPortail;
+
+/**
+ * Vérifie si l'étudiant fait parti d'un bloc donné en fonction de ses groupes
+ * @method
+ * @param {string[]} groups Groupes de l'étudiant
+ * @param {string|number} blocNumber Numéro du bloc
+ * @returns {boolean}
+ * @category Utils
+ */
+const isBlocAffiliate = (groups, blocNumber) => groups.some(group => group.substring(0, 1) === blocNumber + "");
+
 module.exports = {
   sendDiscordMessage,
   load,
-  searchClassesCodes,
-  newsearchClassesCodes
+  getAxiosPortailInstance,
+  isBlocAffiliate
 };
 </code></pre>
         </article>
