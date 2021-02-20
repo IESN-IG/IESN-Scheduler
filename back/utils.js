@@ -165,7 +165,27 @@ const load = () => {
     updateClassesCodes(true);
 };
 
+/**
+ * Retourne l'instance d'axios avec l'identification au portail
+ * @method
+ * @returns {Object}
+ * @category Utils
+ */
+const getAxiosPortailInstance = () => axiosPortail;
+
+/**
+ * Vérifie si l'étudiant fait parti d'un bloc donné en fonction de ses groupes
+ * @method
+ * @param {string[]} groups Groupes de l'étudiant
+ * @param {string|number} blocNumber Numéro du bloc
+ * @returns {boolean}
+ * @category Utils
+ */
+const isBlocAffiliate = (groups, blocNumber) => groups.some(group => group.substring(0, 1) === blocNumber + "");
+
 module.exports = {
   sendDiscordMessage,
-  load
+  load,
+  getAxiosPortailInstance,
+  isBlocAffiliate
 };
