@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IESN Scheduler Global</title>
+  <title>Documentation IESN Scheduler calendar.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -83,284 +85,99 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-calendar.html">calendar</a></li><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Title</p>
-                    <h1>Global</h1>
+                    <p>Source</p>
+                    <h1>calendar.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="determineBlocs">
-        <a class="href-link" href="#determineBlocs">#</a>
-        
-        <span class="code-name">
-            
-                determineBlocs<span class="signature">(groups)</span><span class="type-signature"> &rarr; {Array.&lt;boolean>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Détermine les blocs dans lequel l'étudiant est inscrit
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>groups</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">Array.&lt;string></span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">Groupes de l'étudiant</td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="routes_calendar.js.html" class="button">View Source</a>
-            <span>
-                <a href="routes_calendar.js.html">routes/calendar.js</a>, <a href="routes_calendar.js.html#line23">line 23</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<span class="param-type">Array.&lt;boolean></span>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>determineBlocs(["1A", "2A"]); // [true, true, false]</code></pre>
-    
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Toutes les méthodes utilisées pour la génération du calendrier personnalisé
+ * @module calendar
+ */
+
+const { getFormatedCourses } = require("./utils");
+
+/**
+ * Vérifie si l'étudiant fait parti d'un bloc donné en fonction de ses groupes
+ * @param {string[]} groups Groupes de l'étudiant
+ * @param {string|number} blocNumber Numéro du bloc
+ * @returns {boolean}
+ */
+const isBlocAffiliate = (groups, blocNumber) => groups.some(group => group.substring(0, 1) === blocNumber + "");
+
+/**
+ * Détermine les blocs dans lequel l'étudiant est inscrit
+ * @param {string[]} groups Groupes de l'étudiant
+ * @returns {boolean[]} 
+ * @example
+ *  determineBlocs(["1A", "2A"]); // [true, true, false]
+ */
+const determineBlocs = (groups) => [isBlocAffiliate(groups, 1), isBlocAffiliate(groups, 2), isBlocAffiliate(groups, 3)];
+
+/**
+ * Retourne les cours suivis par l'étudiant selon le bloc donné et la liste des cours (par défaut tous les cours sont suivis)
+ * @param {string[]|null} coursesFollowed 
+ * @param {string|number} blocNumber 
+ * @returns {string[]} Codes des cours suivis dans le bloc donné
+ */
+const getFollowedCoursesByBloc = (coursesFollowed, blocNumber) => {
+    // On pourrait imaginer déduire le numéro du bloc ici sauf que certains id de cours par exemple NPWF3 / NPCI3 ne sont pas du format des cours "standards" qui commencent par le numéro du bloc
+    let courses = [];
+    if (!coursesFollowed || coursesFollowed.includes("all")) {
+        const formatedCourses = getFormatedCourses();
+        courses = formatedCourses[blocNumber].map(course => course.id);
+    } else {
+        courses = coursesFollowed;
+    }
+    return courses;
+}
+
+/**
+ * Retourne tous les cours suivis par l'étudiant
+ * @param {string[]|string|null} coursesBloc1
+ * @param {string[]|string|null} coursesBloc2
+ * @param {string[]|string|null} coursesBloc3
+ * @param {boolean} isInBloc1 
+ * @param {boolean} isInBloc2 
+ * @param {boolean} isInBloc3 
+ * @returns {string[]} Codes des cours suivis
+ */
+const getFollowedCourses = (coursesBloc1, coursesBloc2, coursesBloc3, isInBloc1, isInBloc2, isInBloc3) => {
+    // Être sûr de traiter un tableau ou undefined
+    const cCoursesBloc1 = coursesBloc1 === undefined || Array.isArray(coursesBloc1) ? coursesBloc1 : [coursesBloc1];
+    const cCoursesBloc2 = coursesBloc2 === undefined || Array.isArray(coursesBloc2) ? coursesBloc2 : [coursesBloc2];
+    const cCoursesBloc3 = coursesBloc3 === undefined || Array.isArray(coursesBloc3) ? coursesBloc3 : [coursesBloc3];
+
+    let followedCourses = [];
+
+    if(isInBloc1)
+        followedCourses = [...followedCourses, getFollowedCoursesByBloc(cCoursesBloc1, 1)];
+    if(isInBloc2)
+        followedCourses = [...followedCourses, getFollowedCoursesByBloc(cCoursesBloc2, 2)];
+    if(isInBloc3)
+        followedCourses = [...followedCourses, getFollowedCoursesByBloc(cCoursesBloc3, 3)];
+}
+
+module.exports = {
+    isBlocAffiliate,
+    determineBlocs,
+    getFollowedCourses
+  };
+  </code></pre>
+        </article>
+    </section>
 
 
 

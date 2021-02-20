@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IESN Scheduler Global</title>
+  <title>Documentation IESN Scheduler portail.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -83,284 +85,129 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-calendar.html">calendar</a></li><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Title</p>
-                    <h1>Global</h1>
+                    <p>Source</p>
+                    <h1>portail.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2></h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Toutes les méthodes intéragissant avec le portail
+ * @module portail
+ */
+const axios = require("axios");
+const { setCurrentCodes, getCurrentCodes } = require("./db.js");
+const { objectsAreEquals, sendDiscordMessage } = require("./utils.js");
+require("dotenv").config();
 
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="determineBlocs">
-        <a class="href-link" href="#determineBlocs">#</a>
-        
-        <span class="code-name">
-            
-                determineBlocs<span class="signature">(groups)</span><span class="type-signature"> &rarr; {Array.&lt;boolean>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Détermine les blocs dans lequel l'étudiant est inscrit
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>groups</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">Array.&lt;string></span>
-
+const axiosPortail = axios.create({
+    baseURL: "https://portail.henallux.be/api/",
+    timeout: 15000,
+    headers: {
+      Authorization: "Bearer " + process.env.JWT_PORTAIL,
+      "User-Agent":
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
+    },
+  });
 
   
-  </td>
+/**
+ * Cherche et retourne les codes correspondants aux groupes
+ * @returns {Promise}
+ */
+const searchClassesCodes = () => {
+    return new Promise(async (resolve, reject) => {
+      let jsonData = {};
+      try {
+        const blocsID = await axiosPortail.get(
+          "classes/orientation_and_implantation/6/1",
+          {
+            transformResponse: [
+              function (data) {
+                let jsonData = JSON.parse(data);
+                return jsonData.data.map((item) => item.id);
+              },
+            ],
+          }
+        );
+  
+        for (const bloc of blocsID.data) {
+          const classesID = await axiosPortail.get(
+            `classes/classe_and_orientation_and_implantation/${bloc}/6/1`,
+            {
+              transformResponse: [
+                function (data) {
+                  let jsonData = JSON.parse(data);
+                  return jsonData.data.filter((grp) => grp.classe !== null);
+                },
+              ],
+            }
+          );
+          for (const classe of classesID.data) {
+            const formatedID = classe.annee.charAt(0) + classe.classe;
+            jsonData[formatedID] = classe.id;
+          }
+        }
+        resolve(jsonData);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
+
+/**
+ * Mets à jour les codes correspondants aux groupes
+ * @param {boolean} [onLoad=false] 
+ * @returns {void}
+ */
+const updateClassesCodes = (onLoad = false) => {
+    searchClassesCodes()
+      .then((result) => {
+        const currentCodes = getCurrentCodes();
+        if (!objectsAreEquals(currentCodes, result)) {
+          setCurrentCodes(result);
+          sendDiscordMessage(
+            {
+              title: "Information",
+              text: onLoad ? "Codes mis en cache" : "Code mis à jour",
+            },
+            false
+          );
+        }
+      })
+      .catch((error) => {
+        sendDiscordMessage(
+          {
+            title: "Erreur cache des codes-cours",
+            text: `**Détails** : ${error.message}`,
+          },
+          false
+        );
+      });
+  };
   
 
-  
+/**
+ * Retourne l'instance d'axios avec l'identification au portail
+ * @returns {Object}
+ */
+const getAxiosPortailInstance = () => axiosPortail;
 
-  <td class="description last">Groupes de l'étudiant</td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="routes_calendar.js.html" class="button">View Source</a>
-            <span>
-                <a href="routes_calendar.js.html">routes/calendar.js</a>, <a href="routes_calendar.js.html#line23">line 23</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<span class="param-type">Array.&lt;boolean></span>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>determineBlocs(["1A", "2A"]); // [true, true, false]</code></pre>
-    
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-</article>
-
-</section>
+module.exports = { updateClassesCodes, getAxiosPortailInstance };</code></pre>
+        </article>
+    </section>
 
 
 

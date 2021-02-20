@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IESN Scheduler Global</title>
+  <title>Documentation IESN Scheduler lib/utils.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,277 +92,108 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Title</p>
-                    <h1>Global</h1>
+                    <p>Source</p>
+                    <h1>lib/utils.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="determineBlocs">
-        <a class="href-link" href="#determineBlocs">#</a>
-        
-        <span class="code-name">
-            
-                determineBlocs<span class="signature">(groups)</span><span class="type-signature"> &rarr; {Array.&lt;boolean>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Détermine les blocs dans lequel l'étudiant est inscrit
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>groups</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">Array.&lt;string></span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">Groupes de l'étudiant</td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="routes_calendar.js.html" class="button">View Source</a>
-            <span>
-                <a href="routes_calendar.js.html">routes/calendar.js</a>, <a href="routes_calendar.js.html#line23">line 23</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
-        
-<span class="param-type">Array.&lt;boolean></span>
-
-
-    </div>
-    
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>determineBlocs(["1A", "2A"]); // [true, true, false]</code></pre>
-    
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Différents utilitaires utilisés dans l'app
+ * @module utils
+ */
+const { initDatabase, getSettingByKey } = require("./db.js");
+const { updateClassesCodes } = require("./portail.js");
+require("dotenv").config();
+
+/**
+ * Compare 2 objets et retourne s'ils sont égaux ou non
+ * @param {Object} object1
+ * @param {Object} object2
+ * @returns {boolean}
+ */
+const objectsAreEquals = (object1, object2) => {
+  const object1Keys = Object.keys(object1);
+  const object2Keys = Object.keys(object2);
+  const object1Values = Object.values(object1);
+  const object2Values = Object.values(object2);
+
+  return (
+    object1Keys.length === object2Keys.length &amp;&amp;
+    object1Values.every((value) => object2Values.includes(value))
+  );
+};
+
+/**
+ * Contenu du message Discord
+ * @typedef {Object} ContenuDiscord
+ * @property {string} title
+ * @property {string} text
+ */
+/**
+ * Envoie un webhook Discord
+ * @param {ContenuDiscord} contenuDiscord - Contenu du message à envoyer ({@link ContenuDiscord})
+ * @param {boolean} [isError=true] - Le message a envoyé est un message d'erreur 
+ * @example
+ *  sendDiscordMessage({ title: "Titre du webhook", text: "Text du webhook"})
+ * @returns {void}
+ */
+const sendDiscordMessage = ({ title, text }, isError = true) => {
+  const discordMessage = {
+    content: isError ? `&lt;@${process.env.DISCORD_ID}>` : "",
+    avatar_url: "https://portail.henallux.be/favicon-96x96.png",
+    username: "IESN Scheduler",
+    embeds: [
+      {
+        timestamp: new Date(),
+        color: isError ? getSettingByKey("RED_COLOR") : getSettingByKey("GREEN_COLOR"),
+        fields: [
+          {
+            name: title,
+            value: text,
+          },
+        ],
+      },
+    ],
+  };
+
+  axios.post(process.env.DISCORD_WEBHOOK_URL, JSON.stringify(discordMessage), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+/**
+ * Charge les informations pour la première fois
+ * @returns {void}
+ */
+const load = () => {
+    initDatabase();
+    updateClassesCodes(true);
+};
+
+/**
+ * Vérifie si l'étudiant fait parti d'un bloc donné en fonction de ses groupes
+ * @param {string[]} groups Groupes de l'étudiant
+ * @param {string|number} blocNumber Numéro du bloc
+ * @returns {boolean}
+ */
+const isBlocAffiliate = (groups, blocNumber) => groups.some(group => group.substring(0, 1) === blocNumber + "");
+
+module.exports = {
+  sendDiscordMessage,
+  load,
+  isBlocAffiliate,
+  objectsAreEquals
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

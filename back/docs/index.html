@@ -83,7 +83,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div><div class="category"><h2>Database</h2><h3>Global</h3><ul><li><a href="global.html#getBlocsBySection">getBlocsBySection</a></li><li><a href="global.html#getClassesBySectionAndBloc">getClassesBySectionAndBloc</a></li><li><a href="global.html#getCurrentCodes">getCurrentCodes</a></li><li><a href="global.html#getGroupsBySectionAndBloc">getGroupsBySectionAndBloc</a></li><li><a href="global.html#getSectionDataBySection">getSectionDataBySection</a></li><li><a href="global.html#getSectionDataBySectionAndBloc">getSectionDataBySectionAndBloc</a></li><li><a href="global.html#getSections">getSections</a></li><li><a href="global.html#getSettingByKey">getSettingByKey</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getValidBlocsAndGroupsBySection">getValidBlocsAndGroupsBySection</a></li><li><a href="global.html#initDatabase">initDatabase</a></li><li><a href="global.html#setCurrentCodes">setCurrentCodes</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Global</h3><ul><li><a href="global.html#codesAreEquals">codesAreEquals</a></li><li><a href="global.html#getAxiosPortailInstance">getAxiosPortailInstance</a></li><li><a href="global.html#isBlocAffiliate">isBlocAffiliate</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#searchClassesCodes">searchClassesCodes</a></li><li><a href="global.html#sendDiscordMessage">sendDiscordMessage</a></li><li><a href="global.html#updateClassesCodes">updateClassesCodes</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-calendar.html">calendar</a></li><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div>
                 
             </nav>
         </div>
@@ -115,6 +115,44 @@
 
 
 
+
+    <section>
+        <article><h1 align="center">Welcome to IESN Scheduler 👋</h1>
+<h3>🏠 <a href="https://iesn.thibaultclaude.be">Site</a></h3>
+<h2>Fonctionnalités</h2>
+<ul>
+<li>Génération d'iCal personnalisé selon le bloc, le groupe et les cours permettant une synchronisation dans les applications d'agenda</li>
+<li>Affichage de l'horaire d'un groupe donné</li>
+</ul>
+<h2>Technos utilisées</h2>
+<ul>
+<li><strong>Backend</strong> : express.js</li>
+<li><strong>Frontend</strong> : VueJS</li>
+</ul>
+<h2>TODO</h2>
+<ul>
+<li>Mettre en place un système de cache pour les calendriers
+<ul>
+<li>Évite trop de requête sur l'API Henallux</li>
+<li>Évite les moments de down de l'API</li>
+</ul>
+</li>
+</ul>
+<h2>Notes</h2>
+<ul>
+<li>Stock en local des blocs + A.A. + code dans le fichier <code>blocs.json</code>
+<ul>
+<li>Parse du site (<a href="https://services.henallux.be/paysage/public/cursus/infocursus/idCursus/6">lien</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Auteur</h2>
+<p>👤 <strong>Thibault CLAUDE</strong></p>
+<ul>
+<li>Github: <a href="https://github.com/tclaude94">@tclaude94</a></li>
+<li>Discord : tiiBz#1337</li>
+</ul></article>
+    </section>
 
 
 

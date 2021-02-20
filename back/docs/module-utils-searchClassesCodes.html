@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IESN Scheduler Global</title>
+  <title>Documentation IESN Scheduler searchClassesCodes</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -83,15 +83,15 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-db.html">db</a></li><li><a href="module-utils.html">utils</a></li></ul><h3>Mixins</h3><ul><li><a href="module-utils-searchClassesCodes.html">searchClassesCodes</a></li></ul></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Title</p>
-                    <h1>Global</h1>
+                    <p>Mixin</p>
+                    <h1>searchClassesCodes</h1>
                 </header>
                 
 
@@ -102,7 +102,8 @@
 
 <header>
     
-        <h2></h2>
+        <h2>
+            <span class="ancestors"><a href="module-utils.html">utils</a>~</span>searchClassesCodes</h2>
         
     
 </header>
@@ -111,151 +112,10 @@
     <div class="container-overview">
     
         
-
+            <div class="description">Cherche les codes correspondants aux groupes</div>
         
 
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
         
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="determineBlocs">
-        <a class="href-link" href="#determineBlocs">#</a>
-        
-        <span class="code-name">
-            
-                determineBlocs<span class="signature">(groups)</span><span class="type-signature"> &rarr; {Array.&lt;boolean>}</span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Détermine les blocs dans lequel l'étudiant est inscrit
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>groups</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">Array.&lt;string></span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last">Groupes de l'étudiant</td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
 
 
 <dl class="details">
@@ -291,68 +151,33 @@
 
     
         <p class="tag-source">
-            <a href="routes_calendar.js.html" class="button">View Source</a>
+            <a href="utils.js.html" class="button">View Source</a>
             <span>
-                <a href="routes_calendar.js.html">routes/calendar.js</a>, <a href="routes_calendar.js.html#line23">line 23</a>
+                <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line43">line 43</a>
             </span>
         </p>
     
 </dl>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='columns method-parameter'>
-        <div class="column is-2"><label>Returns:</label></div>
-        <div class="column is-10">
-            
-                    
-
-<div class="columns">
-    
-    
-    <div class='column is-5 has-text-left'>
-        <label>Type: </label>
         
-<span class="param-type">Array.&lt;boolean></span>
-
-
+    
     </div>
     
-</div>
-
-                
-        </div>
-    </div>
-
-
-
-
-    <h5>Example</h5>
-    
-    
-        <pre class="prettyprint"><code>determineBlocs(["1A", "2A"]); // [true, true, false]</code></pre>
     
 
+    
 
-</div>
-            
-            </div>
-        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     

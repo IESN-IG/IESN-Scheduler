@@ -85,7 +85,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div><div class="category"><h2>Database</h2><h3>Global</h3><ul><li><a href="global.html#getBlocsBySection">getBlocsBySection</a></li><li><a href="global.html#getClassesBySectionAndBloc">getClassesBySectionAndBloc</a></li><li><a href="global.html#getCurrentCodes">getCurrentCodes</a></li><li><a href="global.html#getGroupsBySectionAndBloc">getGroupsBySectionAndBloc</a></li><li><a href="global.html#getSectionDataBySection">getSectionDataBySection</a></li><li><a href="global.html#getSectionDataBySectionAndBloc">getSectionDataBySectionAndBloc</a></li><li><a href="global.html#getSections">getSections</a></li><li><a href="global.html#getSettingByKey">getSettingByKey</a></li><li><a href="global.html#getSettings">getSettings</a></li><li><a href="global.html#getValidBlocsAndGroupsBySection">getValidBlocsAndGroupsBySection</a></li><li><a href="global.html#initDatabase">initDatabase</a></li><li><a href="global.html#setCurrentCodes">setCurrentCodes</a></li></ul></div><div class="category"><h2>Utils</h2><h3>Global</h3><ul><li><a href="global.html#codesAreEquals">codesAreEquals</a></li><li><a href="global.html#getAxiosPortailInstance">getAxiosPortailInstance</a></li><li><a href="global.html#isBlocAffiliate">isBlocAffiliate</a></li><li><a href="global.html#load">load</a></li><li><a href="global.html#searchClassesCodes">searchClassesCodes</a></li><li><a href="global.html#sendDiscordMessage">sendDiscordMessage</a></li><li><a href="global.html#updateClassesCodes">updateClassesCodes</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-calendar.html">calendar</a></li><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div>
                 
             </nav>
         </div>
@@ -102,85 +102,30 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const axios = require("axios");
-const { setCurrentCodes, getCurrentCodes, initDatabase, getSettingByKey } = require("./db.js");
+            <pre class="prettyprint source linenums"><code>/**
+ * Différents utilitaires utilisés dans l'app
+ * @module utils
+ */
+const { getSettingByKey, getSectionDataBySection } = require("./db.js");
+const axios = require("axios");
 require("dotenv").config();
 
-const axiosPortail = axios.create({
-  baseURL: "https://portail.henallux.be/api/",
-  timeout: 15000,
-  headers: {
-    Authorization: "Bearer " + process.env.JWT_PORTAIL,
-    "User-Agent":
-      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
-  },
-});
-
 /**
- * Compare les codes API passés en argument avec les codes API présents en mémoire
- * @method
- * @param {Object} newCodes - Nouveaux codes API fetchés
- * @returns {boolean} Les codes API ont changé, ou non
- * @category Utils
+ * Compare 2 objets et retourne s'ils sont égaux ou non
+ * @param {Object} object1
+ * @param {Object} object2
+ * @returns {boolean}
  */
-const codesAreEquals = (newCodes) => {
-  const currentCodes = getCurrentCodes();
-
-  const newCodesKeys = Object.keys(newCodes);
-  const currentCodesKeys = Object.keys(currentCodes);
-  const newCodesValues = Object.values(newCodes);
-  const currentCodesValues = Object.values(currentCodes);
+const objectsAreEquals = (object1, object2) => {
+  const object1Keys = Object.keys(object1);
+  const object2Keys = Object.keys(object2);
+  const object1Values = Object.values(object1);
+  const object2Values = Object.values(object2);
 
   return (
-    newCodesKeys.length === currentCodesKeys.length &amp;&amp;
-    currentCodesValues.every((code) => newCodesValues.includes(code))
+    object1Keys.length === object2Keys.length &amp;&amp;
+    object1Values.every((value) => object2Values.includes(value))
   );
-};
-
-/**
- * Cherche les codes correspondants aux groupes
- * @method
- * @returns {Promise} Promise contenant les codes
- * @category Utils
- */
-const searchClassesCodes = () => {
-  return new Promise(async (resolve, reject) => {
-    let jsonData = {};
-    try {
-      const blocsID = await axiosPortail.get(
-        "classes/orientation_and_implantation/6/1",
-        {
-          transformResponse: [
-            function (data) {
-              let jsonData = JSON.parse(data);
-              return jsonData.data.map((item) => item.id);
-            },
-          ],
-        }
-      );
-
-      for (const bloc of blocsID.data) {
-        const classesID = await axiosPortail.get(
-          `classes/classe_and_orientation_and_implantation/${bloc}/6/1`,
-          {
-            transformResponse: [
-              function (data) {
-                let jsonData = JSON.parse(data);
-                return jsonData.data.filter((grp) => grp.classe !== null);
-              },
-            ],
-          }
-        );
-        for (const classe of classesID.data) {
-          const formatedID = classe.annee.charAt(0) + classe.classe;
-          jsonData[formatedID] = classe.id;
-        }
-      }
-      resolve(jsonData);
-    } catch (error) {
-      reject(error);
-    }
-  });
 };
 
 /**
@@ -188,17 +133,14 @@ const searchClassesCodes = () => {
  * @typedef {Object} ContenuDiscord
  * @property {string} title
  * @property {string} text
- * @category Utils
  */
 /**
  * Envoie un webhook Discord
- * @method
  * @param {ContenuDiscord} contenuDiscord - Contenu du message à envoyer ({@link ContenuDiscord})
  * @param {boolean} [isError=true] - Le message a envoyé est un message d'erreur 
  * @example
  *  sendDiscordMessage({ title: "Titre du webhook", text: "Text du webhook"})
  * @returns {void}
- * @category Utils
  */
 const sendDiscordMessage = ({ title, text }, isError = true) => {
   const discordMessage = {
@@ -227,71 +169,70 @@ const sendDiscordMessage = ({ title, text }, isError = true) => {
 };
 
 /**
- * Mets à jour les codes correspondants aux groupes
- * @method
- * @param {boolean} [onLoad=false] 
- * @returns {void}
- * @category Utils
- */
-const updateClassesCodes = (onLoad = false) => {
-  searchClassesCodes()
-    .then((result) => {
-      if (!codesAreEquals(result)) {
-        setCurrentCodes(result);
-        sendDiscordMessage(
-          {
-            title: "Information",
-            text: onLoad ? "Codes mis en cache" : "Code mis à jour",
-          },
-          false
-        );
-      }
-    })
-    .catch((error) => {
-      sendDiscordMessage(
-        {
-          title: "Erreur cache des codes-cours",
-          text: `**Détails** : ${error.message}`,
-        },
-        false
-      );
-    });
-};
-
-/**
- * Charge les informations pour la première fois
- * @method
- * @returns {void}
- * @category Utils
- */
-const load = () => {
-    initDatabase();
-    updateClassesCodes(true);
-};
-
-/**
- * Retourne l'instance d'axios avec l'identification au portail
- * @method
+ * Retourne les cours "applatis" et formatés de la section donnée
+ * @param {string} [section=IG] 
  * @returns {Object}
- * @category Utils
+ * @example
+ *  getFormatedCourses("IG");
+ * // return:
+ * {
+ *  "1": [{
+      id: "",
+      displayName: "",
+      completeName: "",
+      aliases: [""] | null
+    },
+    { 
+      id: "",
+      displayName: "",
+      completeName: "",
+      aliases: [""] | null
+    }],
+ *  "2": [...],
+ *  "3": [...]
+ * }
  */
-const getAxiosPortailInstance = () => axiosPortail;
+const getFormatedCourses = (section = "IG") => {
+  let formatedCourses = {
+    1: [],
+    2: [],
+    3: []
+  };
+  const sectionData = getSectionDataBySection(section);
+  const mapFormatCourse = ({displayName, completeName, id, aliases}) => {
+    return {
+      displayName,
+      completeName,
+      id,
+      aliases
+    }
+  };
+  
+  for(let i = 1; i &lt;= 3; i++){
+    if(sectionData[i].classes.length > 0){
+      formatedCourses[i] = sectionData[i].classes.reduce((accumulator, { classes: currentClasseClasses, id: currentClasseId, displayName: currentClasseDisplayName, completeName: currentClasseCompleteName, aliases: currentClasseAliases }) => {
+        if(currentClasseClasses){
+          accumulator = [...accumulator, ...currentClasseClasses.map(mapFormatCourse)]
+        }else{
+          accumulator = [...accumulator, {
+            displayName: currentClasseDisplayName,
+            completeName: currentClasseCompleteName,
+            id: currentClasseId,
+            aliases: currentClasseAliases
+          }]
+        }
+        return accumulator;
+      }, [])
+    }
+  }
 
-/**
- * Vérifie si l'étudiant fait parti d'un bloc donné en fonction de ses groupes
- * @method
- * @param {string[]} groups Groupes de l'étudiant
- * @param {string|number} blocNumber Numéro du bloc
- * @returns {boolean}
- * @category Utils
- */
-const isBlocAffiliate = (groups, blocNumber) => groups.some(group => group.substring(0, 1) === blocNumber + "");
+  return formatedCourses;
+}
 
 module.exports = {
   sendDiscordMessage,
-  load,
-  getAxiosPortailInstance,
-  isBlocAffiliate
+  objectsAreEquals,
+  getFormatedCourses
 };
 </code></pre>
         </article>

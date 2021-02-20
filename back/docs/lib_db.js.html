@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IESN Scheduler db.js</title>
+  <title>Documentation IESN Scheduler lib/db.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -85,7 +85,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-calendar.html">calendar</a></li><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-db.html">db</a></li><li><a href="module-portail.html">portail</a></li><li><a href="module-utils.html">utils</a></li></ul></div><div class="category"><h2>Calendar</h2><h3>Global</h3><ul><li><a href="global.html#determineBlocs">determineBlocs</a></li></ul></div>
                 
             </nav>
         </div>
@@ -93,7 +93,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>db.js</h1>
+                    <h1>lib/db.js</h1>
                 </header>
                 
 
@@ -264,19 +264,7 @@ const getCurrentCodes = () => db.get(`${process.env.DB_PREFIX}.codes`) || {};
  */
 const setCurrentCodes = (codes) => db.set(`${process.env.DB_PREFIX}.codes`, codes);
 
-module.exports = { 
-    setCurrentCodes, 
-    getCurrentCodes, 
-    initDatabase, 
-    getSettings, 
-    getSettingByKey, 
-    getValidBlocsAndGroupsBySection, 
-    getSectionDataBySection, 
-    getBlocDataBySectionAndBloc,
-    getClassesBySectionAndBloc,
-    getSections,
-    getGroupsBySectionAndBloc 
-}</code></pre>
+module.exports = { setCurrentCodes, getCurrentCodes, initDatabase, getSettings, getSettingByKey, getValidBlocsAndGroupsBySection }</code></pre>
         </article>
     </section>
 
