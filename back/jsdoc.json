@@ -9,7 +9,7 @@
         "destination": "docs/",
         "recurse": true,
         "verbose": true,
-        "readme": "./README.md"
+        "readme": "./JSDOC-README.md"
     },
     "tags": {
         "allowUnknownTags": ["category"]
