@@ -1,7 +1,6 @@
 const fastify = require('fastify')();
 const path = require('path');
 const autoload = require('fastify-autoload');
-const { getFormatedCourses } = require('./lib/utils');
 const { initDatabase } = require('./lib/db');
 const { updateClassesCodes } = require('./lib/portail');
 require("dotenv").config();
@@ -16,6 +15,7 @@ const start = async () => {
     try {
         await fastify.listen(process.env.PORT);
     } catch (err) {
+        console.error(err);
         fastify.log.error(err);
         process.exit(1);
     }
