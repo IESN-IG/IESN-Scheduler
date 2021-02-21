@@ -1,30 +1,24 @@
-<h1 align="center">Front-end IESN Scheduler 🖼️</h1>
+# front
 
-### 📆 [Site](https://iesn.thibaultclaude.be) - 📝 [Documentation](https://iesn-ig.github.io/IESN-Scheduler/) - 🏠 [Site Perso](https://thibaultclaude.be)
-
-## Techno utilisée
-Next.js
-
-## Installation
-```bash
-npm install
+## Project setup
 ```
-⚠️ Renommer le fichier `template.env.local` en `.env.local` et remplacer/compléter par vos informations
-
-## Utilisation
-```bash
-npm run dev
+pnpm install
 ```
-Un serveur web sera disponible et accessible à l'adresse localhost:3000
 
-## Notes
-- [Documentation Next.js](https://nextjs.org/docs).
-- [Apprendre Next.js](https://nextjs.org/learn).
-- [Exemples Next.js](https://github.com/vercel/next.js/tree/master/examples).
+### Compiles and hot-reloads for development
+```
+pnpm run serve
+```
 
-## Contact
+### Compiles and minifies for production
+```
+pnpm run build
+```
 
-👤 **Thibault CLAUDE**
+### Lints and fixes files
+```
+pnpm run lint
+```
 
-* Github: [@tclaude94](https://github.com/tclaude94)
-* Discord : tiiBz#1337
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
