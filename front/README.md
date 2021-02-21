@@ -1,24 +1,29 @@
-# front
+<h1 align="center">Front-end IESN Scheduler 🖼️</h1>
 
-## Project setup
-```
-pnpm install
-```
+### 📆 [Site](https://iesn.thibaultclaude.be) - 📝 [Documentation](https://iesn-ig.github.io/IESN-Scheduler/) - 🏠 [Site Perso](https://thibaultclaude.be)
 
-### Compiles and hot-reloads for development
-```
-pnpm run serve
-```
+## Techno utilisée
+Vue.js
 
-### Compiles and minifies for production
+## Installation
+```bash
+npm install
 ```
-pnpm run build
-```
+⚠️ Renommer le fichier `template.env` en `.env` et remplacer/compléter par vos informations
 
-### Lints and fixes files
+## Utilisation
+```bash
+npm run serve
 ```
-pnpm run lint
-```
+Un serveur web sera disponible et accessible à l'adresse localhost:8080
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Notes
+- [Documentation Vue.js v2](https://vuejs.org/v2/guide/).
+- [Documentation Vuetify](https://vuetifyjs.com/en/getting-started/installation/).
+
+## Contact
+
+👤 **Thibault CLAUDE**
+
+* Github: [@tclaude94](https://github.com/tclaude94)
+* Discord : tiiBz#1337

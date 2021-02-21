@@ -15,7 +15,7 @@ npm install
 ```bash
 node app.js
 ```
-Un serveur web sera disponible et accessible à l'adresse localhost:PORT/calendar (PORT étant la variable d'environnement choisie dans votre .env, par défaut 3000)
+Un serveur web sera disponible et accessible à l'adresse localhost:PORT/calendar (PORT étant la variable d'environnement choisie dans votre .env, par défaut 3001)
 
 ## Contact
 
