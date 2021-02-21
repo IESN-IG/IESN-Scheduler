@@ -147,24 +147,18 @@ const formatBlocDataForVue = (blocNumber, section = "IG") => {
   const classesData = getClassesBySectionAndBloc(blocNumber, section);
 
   if(classesData){
-      finalArray = classesData.reduce((accumulator, currentClasse) => {
-        if(currentClasse.classes){
-          accumulator = [ ...accumulator, { header: currentClasse.displayName }, ...currentClasse.classes.map(classe => {
-            return {
-              text: classe.displayName,
-              value: classe.id
-            }
-          })];
-        }else{
-          accumulator = [ ...accumulator, {
-              text: currentClasse.displayName,
-              value: currentClasse.id
-            }];
-        }
-        return accumulator;
-      }, [])
-  }
+    const ueWithClasses = classesData.filter(classe => classe.classes);
+    const ueWithoutClasses = classesData.filter(classe => !classe.classes);
 
+    const mapClasseForVue = (classe) => {
+      return {
+        text: classe.displayName,
+        value: classe.id
+      }
+    }
+    
+    finalArray = [ ...ueWithoutClasses.map(mapClasseForVue), ...ueWithClasses.reduce((accumulator, currentClasse) => [ ...accumulator, { header: currentClasse.displayName }, ...currentClasse.classes.map(mapClasseForVue)], [])]
+  }
   return finalArray
 }
 
