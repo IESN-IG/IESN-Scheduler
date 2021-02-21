@@ -2,7 +2,7 @@
  * Différents utilitaires utilisés dans l'app
  * @module utils
  */
-const { getSettingByKey, getSectionDataBySection } = require("./db.js");
+const { getSettingByKey, getSectionDataBySection, getClassesBySectionAndBloc, getGroupsBySectionAndBloc } = require("./db.js");
 const axios = require("axios");
 require("dotenv").config();
 
@@ -136,10 +136,81 @@ const getAllCoursesLabels = (section = "IG") => {
   return [...arrayFormatedCourses.map(course => course.displayName), ...arrayFormatedCourses.filter(course => course.aliases).reduce((acc, curr) => [...acc, ...curr.aliases], [])]
 }
 
+/**
+ * Retourne les informations du bloc formatées pour Vue.JS pour plus de détails voir {@link formatSectionDataForVue}
+ * @param {string|number} blocNumber 
+ * @param {string} [section=IG] 
+ */
+
+const formatBlocDataForVue = (blocNumber, section = "IG") => {
+  let finalArray = [];
+  const classesData = getClassesBySectionAndBloc(blocNumber, section);
+
+  if(classesData){
+      finalArray = classesData.reduce((accumulator, currentClasse) => {
+        if(currentClasse.classes){
+          accumulator = [ ...accumulator, { header: currentClasse.displayName }, ...currentClasse.classes.map(classe => {
+            return {
+              text: classe.displayName,
+              value: classe.id
+            }
+          })];
+        }else{
+          accumulator = [ ...accumulator, {
+              text: currentClasse.displayName,
+              value: currentClasse.id
+            }];
+        }
+        return accumulator;
+      }, [])
+  }
+
+  return finalArray
+}
+
+/**
+ * Retourne les informations de la section formatées pour Vue.JS
+ * @param {string} [section=IG] 
+ * @example
+ *  formatSectionDataForVue("IG");
+ *  // return
+ *  {
+ *    bloc1: {
+ *      groups: [{text: "Groupe A", value: "A"}, ...],
+ *      classes: [{header: "Titre de l'UE"}, {text: "Organisation et exploitation des données", value: "OED"}, ...]
+ *    },
+ *    bloc2 : {
+ *      groups: [...],
+ *      classes: [...]
+ *    },
+ *    bloc3 : {
+ *      groups: [...],
+ *      classes: [...]
+ *    }
+ *  }
+ */
+const formatSectionDataForVue = (section = "IG") => {
+  let formatedSectionData = {}
+  for(let blocNumber = 1; blocNumber <= 3; blocNumber ++){
+    formatedSectionData["bloc" + blocNumber] = {
+        groups: [],
+        classes: []
+    }
+    formatedSectionData["bloc" + blocNumber].classes = formatBlocDataForVue(blocNumber, section);
+    if(formatedSectionData["bloc" + blocNumber].classes.length > 0){
+      const blocGroups = getGroupsBySectionAndBloc(blocNumber, section);
+      formatedSectionData["bloc" + blocNumber].groups = blocGroups.reduce((accumulator, currentGroupLetter) => [...accumulator, { text: "Groupe " + currentGroupLetter, value: `${blocNumber + currentGroupLetter}`}], [])
+    }
+  }
+
+  return formatedSectionData;
+}
+
 
 module.exports = {
   sendDiscordMessage,
   objectsAreEquals,
   getFormatedCourses,
-  getAllCoursesLabels
+  getAllCoursesLabels,
+  formatSectionDataForVue
 };
